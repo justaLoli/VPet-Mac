@@ -55,6 +55,7 @@
 		8F524ACC2AA0C36100E138C7 /* StatusBarItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarItemController.swift; sourceTree = "<group>"; };
 		8F6F82372A9E2DA700664375 /* new2viewcontroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = new2viewcontroller.swift; sourceTree = "<group>"; };
 		8F6F827E2A9E376E00664375 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
+		8FC9CD842AA238120041F177 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8FE746682AA04A2F0098B14A /* FileSniffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSniffer.swift; sourceTree = "<group>"; };
 		8FE7466A2AA051C00098B14A /* VPet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -87,6 +88,7 @@
 		8F0042AF2A9B89C30054CE7C = {
 			isa = PBXGroup;
 			children = (
+				8FC9CD842AA238120041F177 /* README.md */,
 				8F0042BA2A9B89C30054CE7C /* new2 */,
 				8F0042CC2A9B89C50054CE7C /* new2Tests */,
 				8F0042D62A9B89C50054CE7C /* new2UITests */,
@@ -374,7 +376,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = new2/Info.plist;
+				INFOPLIST_FILE = "VPet-Mac/Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 12.6;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -429,7 +431,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = new2/Info.plist;
+				INFOPLIST_FILE = "VPet-Mac/Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 12.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;

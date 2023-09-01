@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Application-->
+        <scene sceneID="JPo-4y-FX3">
+            <objects>
+                <application id="hnw-xV-0zn" sceneMemberID="viewController">
+                    <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6"/>
+                    <connections>
+                        <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
+                    </connections>
+                </application>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="new2" customModuleProvider="target"/>
+                <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
+                <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="75" y="0.0"/>
+        </scene>
+        <!--Window Controller-->
+        <scene sceneID="R2V-B0-nI4">
+            <objects>
+                <windowController id="B8D-0N-5wS" customClass="WindowController" customModule="new2" customModuleProvider="target" sceneMemberID="viewController">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" tabbingMode="disallowed" titlebarAppearsTransparent="YES" id="IQv-IB-iLA">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" fullSizeContentView="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="183" y="439" width="480" height="270"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <value key="minSize" type="size" width="50" height="50"/>
+                        <value key="maxSize" type="size" width="800" height="800"/>
+                        <connections>
+                            <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <outlet property="chooseActionMenu" destination="lFS-x6-Pwn" id="KsF-eb-yed"/>
+                    </connections>
+                </windowController>
+                <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="75" y="250"/>
+        </scene>
+        <!--VPet-Mac view controller-->
+        <scene sceneID="hIz-AP-VOD">
+            <objects>
+                <viewController title="VPet-Mac view controller" storyboardIdentifier="new2ViewController" id="XfG-lQ-9wD" customClass="ViewController" customModule="new2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="m2S-Jp-Qdl">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="931-U7-2q5">
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <gestureRecognizers>
+                                    <panGestureRecognizer delaysPrimaryMouseButtonEvents="YES" id="6Tl-pi-D9e"/>
+                                </gestureRecognizers>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="Phd-fl-52W"/>
+                            </imageView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="51e-lZ-Xsr">
+                                <rect key="frame" x="245" y="-7" width="62" height="32"/>
+                                <buttonCell key="cell" type="push" title="退出" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9v9-Ez-xp2">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <color key="bezelColor" red="0.22243476159793818" green="0.22243476159793818" blue="0.22243476159793818" alpha="0.098039215686274508" colorSpace="custom" customColorSpace="displayP3"/>
+                                <connections>
+                                    <action selector="onButtonClicked:" target="XfG-lQ-9wD" id="EBT-qS-ah8"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DO2-vu-GvQ">
+                                <rect key="frame" x="219" y="25" width="88" height="32"/>
+                                <buttonCell key="cell" type="push" title="切换状态" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="rek-uE-p48">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <color key="bezelColor" red="0.22243476159793818" green="0.22243476159793818" blue="0.22243476159793818" alpha="0.098039215686274508" colorSpace="custom" customColorSpace="displayP3"/>
+                                <connections>
+                                    <action selector="onButtonClicked:" target="XfG-lQ-9wD" id="GMB-SA-875"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Y1B-vS-f4t">
+                                <rect key="frame" x="245" y="57" width="62" height="32"/>
+                                <buttonCell key="cell" type="push" title="动作" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="kMl-gk-HM4">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <color key="bezelColor" red="0.22243476159793818" green="0.22243476159793818" blue="0.22243476159793818" alpha="0.098039215686274508" colorSpace="custom" customColorSpace="displayP3"/>
+                                <connections>
+                                    <action selector="onButtonClicked:" target="XfG-lQ-9wD" id="CCD-eo-30q"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Y1B-vS-f4t" secondAttribute="trailing" id="Jl2-Af-GVE"/>
+                            <constraint firstItem="DO2-vu-GvQ" firstAttribute="top" secondItem="Y1B-vS-f4t" secondAttribute="bottom" constant="12" symbolic="YES" id="Mox-cT-vPH"/>
+                            <constraint firstAttribute="bottom" secondItem="51e-lZ-Xsr" secondAttribute="bottom" id="Qgm-fm-2aP"/>
+                            <constraint firstAttribute="trailing" secondItem="DO2-vu-GvQ" secondAttribute="trailing" id="aQJ-On-wIE"/>
+                            <constraint firstItem="51e-lZ-Xsr" firstAttribute="top" secondItem="DO2-vu-GvQ" secondAttribute="bottom" constant="12" symbolic="YES" id="aqI-kf-NNF"/>
+                            <constraint firstAttribute="trailing" secondItem="51e-lZ-Xsr" secondAttribute="trailing" id="gWt-pW-t4p"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="ACTIONMenu" destination="lFS-x6-Pwn" id="VTI-9j-X3U"/>
+                        <outlet property="ACTIONMenuButton" destination="Y1B-vS-f4t" id="LhI-zH-zMu"/>
+                        <outlet property="BObutton" destination="DO2-vu-GvQ" id="pos-0b-q60"/>
+                        <outlet property="ZANbutton" destination="51e-lZ-Xsr" id="pZb-mt-GEb"/>
+                        <outlet property="imagev" destination="931-U7-2q5" id="sbe-GK-LzR"/>
+                    </connections>
+                </viewController>
+                <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <menu id="lFS-x6-Pwn">
+                    <items>
+                        <menuItem title="工作" id="aX2-U6-Rzd">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <menu key="submenu" title="工作" id="XFB-Wu-0BS">
+                                <items>
+                                    <menuItem title="PlayONE" id="ARk-bq-vEA" userLabel="PlayONE">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="UgP-LE-or9"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="RemoveObject" id="NTv-q4-8Ko">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="4Ct-QC-yi0"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Study" id="4WP-7W-mIq">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="Mup-K6-DPm"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="StudyTWO" id="QOS-pm-tWp">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="OvO-XC-9b1"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="WorkClean" id="o0B-jR-YZz">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="vvI-f0-Cvu"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="WorkONE" id="i3H-sp-dx9">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="uRl-Si-AJm"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="WorkTWO" id="NxG-FM-7Q1">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="tKU-Vp-XNd"/>
+                                        </connections>
+                                    </menuItem>
+                                </items>
+                            </menu>
+                        </menuItem>
+                        <menuItem title="空闲" id="Ieb-Wn-vtH">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <menu key="submenu" title="空闲" id="CJR-Cd-g5h">
+                                <items>
+                                    <menuItem title="Boring" id="sig-WD-ala">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="LR3-qk-xFV"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Squat" id="Nep-EZ-K8D">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="bUr-4r-DWT"/>
+                                        </connections>
+                                    </menuItem>
+                                </items>
+                            </menu>
+                        </menuItem>
+                        <menuItem title="Sleep" id="pa7-eP-7AB">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="cRJ-96-kPy"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="说话" id="9ft-ME-AbL">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <menu key="submenu" title="说话" id="7vn-rn-Ar3">
+                                <items>
+                                    <menuItem title="Self" id="Ybt-o9-4M7">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="MdV-04-PLW"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Serious" id="flg-Qj-NyH">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="pmt-tz-7ZQ"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Shining" id="cbs-gQ-ZIv">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="qQC-Fi-ZEm"/>
+                                        </connections>
+                                    </menuItem>
+                                </items>
+                            </menu>
+                        </menuItem>
+                        <menuItem title="待机" id="gEV-CE-pck">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <menu key="submenu" title="待机" id="a0O-f7-T4s">
+                                <items>
+                                    <menuItem title="StateONE" id="KKd-On-kRe">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="Zjm-t4-gfm"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="StateTWO" id="hrB-3Z-YZc">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="DdF-7H-Xoz"/>
+                                        </connections>
+                                    </menuItem>
+                                </items>
+                            </menu>
+                            <connections>
+                                <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="Fgq-MH-4Ta"/>
+                            </connections>
+                        </menuItem>
+                    </items>
+                </menu>
+            </objects>
+            <point key="canvasLocation" x="75" y="655"/>
+        </scene>
+        <!--test controller-->
+        <scene sceneID="i8m-5W-Hdy">
+            <objects>
+                <viewController id="ten-YE-BlM" userLabel="test controller" sceneMemberID="viewController">
+                    <view key="view" id="1wj-aB-4A0">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="BXZ-ce-hCN" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="60" y="1011"/>
+        </scene>
+    </scenes>
+</document>

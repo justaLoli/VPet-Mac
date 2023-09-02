@@ -10,7 +10,7 @@ import Cocoa
 class VPet{
     let displayWindow:WindowController!
     let animeplayer:AnimePlayer!
-    var VPetStatus = GraphInfo.ModeType.Normal
+    var VPetStatus = GraphInfo.ModeType.Happy
     
 //    var VPetCurrentMovement = GraphInfo.GraphType.Default
     
@@ -53,7 +53,8 @@ class VPet{
     func makeDefault(){
         let list2 = animeplayer.animeInfoList.find(graphtype: .Default,modetype: VPetStatus).shuffled()
         animeplayer.setPlayList(list2)
-        animeplayer.setPlayMode(.SingleLoop)
+//        animeplayer.setPlayMode(.SingleLoop)
+        animeplayer.setPlayMode(.Shuffle)
     }
     
     func shutdown(){
@@ -142,10 +143,14 @@ class VPet{
         }
         lists = animeplayer.animeInfoList.find(animatype:.B_Loop,modetype: VPetStatus,keywordinfilename: searchkey)
         if(!lists.isEmpty){
-            pl.append(lists.randomElement()!)
+//            pl.append(lists.randomElement()!)
+            pl += lists;
         }
+        
         ;
         self.animeplayer.interruptAndSetPlayList(pl)
+        self.animeplayer.removeCurrentAnimeAfterFinish = true;
+        self.animeplayer.setPlayMode(.Shuffle)
     }
     
 }

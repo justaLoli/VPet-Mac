@@ -159,7 +159,7 @@ class AnimePlayer{
         //创建多个计时器是不好的
         if (timer != nil){return}
         //创建计时器
-        timer = Timer(timeInterval: 0.2, target: self, selector:#selector(playerFrameHandler), userInfo: nil, repeats: true )
+        timer = Timer(timeInterval: 0.125, target: self, selector:#selector(playerFrameHandler), userInfo: nil, repeats: true )
         RunLoop.main.add(timer!,forMode: .common)
     }
     func next(){
@@ -169,6 +169,23 @@ class AnimePlayer{
         play()
     }
     
+    var singleFrameTimeCount = 0
+    var currentFrameTimeLength:Int? = nil;
+    func getFrameTimeFromFileName(_ inputString:String) -> Int{
+        // /Users/justaloli/Downloads/0000_core/pet/vup/StartUP/Happy_1/_000_125.png
+        //chatGPT 给的代码，somehow works
+        let regex = try! NSRegularExpression(pattern: "\\d+(?!.*\\d)", options: [])
+        if let match = regex.firstMatch(in: inputString, options: [], range: NSRange(location: 0, length: inputString.utf16.count)) {
+            if let range = Range(match.range, in: inputString) {
+                let matchedString = inputString[range]
+                if let number = Int(matchedString) {
+//                    print("提取的数字是：\(number)")
+                    return number;
+                }
+            }
+        }
+        return 125
+    }
     
     @objc private func playerFrameHandler(_ timer: Timer?) -> Void {
 //        if(frameCount == 0){
@@ -192,8 +209,23 @@ class AnimePlayer{
         
         //设置图片
         ImageView.image = NSImage(byReferencingFile: animeFrames[frameCount])
+        
+        
         //帧计数
-        frameCount+=1
+        singleFrameTimeCount += 1
+        if(currentFrameTimeLength == nil){currentFrameTimeLength = getFrameTimeFromFileName(animeFrames[frameCount])}
+        if(singleFrameTimeCount * 125 >= currentFrameTimeLength!){
+            singleFrameTimeCount = 0;
+            frameCount += 1
+            currentFrameTimeLength = nil
+        }
+//        let frameLength = animeFrames[frameCount].split(separator: "_")
+//        let frameLength = animeFrames[frameCount].split(separator: ".")
+        
+        ;
+        
+//        //帧计数
+//        frameCount+=1
         
         
         //播放结束的处理

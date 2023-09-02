@@ -15,7 +15,9 @@
 		8F0042D82A9B89C50054CE7C /* new2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0042D72A9B89C50054CE7C /* new2UITests.swift */; };
 		8F0042DA2A9B89C50054CE7C /* new2UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0042D92A9B89C50054CE7C /* new2UITestsLaunchTests.swift */; };
 		8F35E8682A9F647C001F859C /* AnimePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F35E8672A9F647C001F859C /* AnimePlayer.swift */; };
+		8F428B0D2AA341D000EB5CE4 /* ChooseActionMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F428B0C2AA341D000EB5CE4 /* ChooseActionMenu.swift */; };
 		8F524ACD2AA0C36200E138C7 /* StatusBarItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F524ACC2AA0C36100E138C7 /* StatusBarItemController.swift */; };
+		8F52524F2AA33DB500E541A5 /* texts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52524E2AA33DB500E541A5 /* texts.swift */; };
 		8F6F82802A9E376E00664375 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6F827E2A9E376E00664375 /* WindowController.swift */; };
 		8FE746692AA04A2F0098B14A /* FileSniffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE746682AA04A2F0098B14A /* FileSniffer.swift */; };
 		8FE7466B2AA051C00098B14A /* VPet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE7466A2AA051C00098B14A /* VPet.swift */; };
@@ -39,19 +41,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8F0042B82A9B89C30054CE7C /* VPet-Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VPet-Mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F0042B82A9B89C30054CE7C /* new2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = new2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F0042BB2A9B89C30054CE7C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8F0042BD2A9B89C30054CE7C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8F0042BF2A9B89C50054CE7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8F0042C22A9B89C50054CE7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8F0042C42A9B89C50054CE7C /* new2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = new2.entitlements; sourceTree = "<group>"; };
-		8F0042C92A9B89C50054CE7C /* VPet-MacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VPet-MacTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F0042C92A9B89C50054CE7C /* new2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = new2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F0042CD2A9B89C50054CE7C /* new2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = new2Tests.swift; sourceTree = "<group>"; };
-		8F0042D32A9B89C50054CE7C /* VPet-MacUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VPet-MacUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F0042D32A9B89C50054CE7C /* new2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = new2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F0042D72A9B89C50054CE7C /* new2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = new2UITests.swift; sourceTree = "<group>"; };
 		8F0042D92A9B89C50054CE7C /* new2UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = new2UITestsLaunchTests.swift; sourceTree = "<group>"; };
 		8F35E8672A9F647C001F859C /* AnimePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimePlayer.swift; sourceTree = "<group>"; };
+		8F428B0C2AA341D000EB5CE4 /* ChooseActionMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseActionMenu.swift; sourceTree = "<group>"; };
 		8F524ACC2AA0C36100E138C7 /* StatusBarItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarItemController.swift; sourceTree = "<group>"; };
+		8F52524E2AA33DB500E541A5 /* texts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = texts.swift; sourceTree = "<group>"; };
 		8F6F827E2A9E376E00664375 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		8FC9CD842AA238120041F177 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8FE746682AA04A2F0098B14A /* FileSniffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSniffer.swift; sourceTree = "<group>"; };
@@ -97,9 +101,9 @@
 		8F0042B92A9B89C30054CE7C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8F0042B82A9B89C30054CE7C /* VPet-Mac.app */,
-				8F0042C92A9B89C50054CE7C /* VPet-MacTests.xctest */,
-				8F0042D32A9B89C50054CE7C /* VPet-MacUITests.xctest */,
+				8F0042B82A9B89C30054CE7C /* new2.app */,
+				8F0042C92A9B89C50054CE7C /* new2Tests.xctest */,
+				8F0042D32A9B89C50054CE7C /* new2UITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -117,6 +121,8 @@
 				8FE746682AA04A2F0098B14A /* FileSniffer.swift */,
 				8FE7466A2AA051C00098B14A /* VPet.swift */,
 				8F524ACC2AA0C36100E138C7 /* StatusBarItemController.swift */,
+				8F52524E2AA33DB500E541A5 /* texts.swift */,
+				8F428B0C2AA341D000EB5CE4 /* ChooseActionMenu.swift */,
 			);
 			path = new2;
 			sourceTree = "<group>";
@@ -141,9 +147,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8F0042B72A9B89C30054CE7C /* VPet-Mac */ = {
+		8F0042B72A9B89C30054CE7C /* new2 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8F0042DD2A9B89C50054CE7C /* Build configuration list for PBXNativeTarget "VPet-Mac" */;
+			buildConfigurationList = 8F0042DD2A9B89C50054CE7C /* Build configuration list for PBXNativeTarget "new2" */;
 			buildPhases = (
 				8F0042B42A9B89C30054CE7C /* Sources */,
 				8F0042B52A9B89C30054CE7C /* Frameworks */,
@@ -153,14 +159,14 @@
 			);
 			dependencies = (
 			);
-			name = "VPet-Mac";
+			name = new2;
 			productName = new2;
-			productReference = 8F0042B82A9B89C30054CE7C /* VPet-Mac.app */;
+			productReference = 8F0042B82A9B89C30054CE7C /* new2.app */;
 			productType = "com.apple.product-type.application";
 		};
-		8F0042C82A9B89C50054CE7C /* VPet-MacTests */ = {
+		8F0042C82A9B89C50054CE7C /* new2Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8F0042E02A9B89C50054CE7C /* Build configuration list for PBXNativeTarget "VPet-MacTests" */;
+			buildConfigurationList = 8F0042E02A9B89C50054CE7C /* Build configuration list for PBXNativeTarget "new2Tests" */;
 			buildPhases = (
 				8F0042C52A9B89C50054CE7C /* Sources */,
 				8F0042C62A9B89C50054CE7C /* Frameworks */,
@@ -171,14 +177,14 @@
 			dependencies = (
 				8F0042CB2A9B89C50054CE7C /* PBXTargetDependency */,
 			);
-			name = "VPet-MacTests";
+			name = new2Tests;
 			productName = new2Tests;
-			productReference = 8F0042C92A9B89C50054CE7C /* VPet-MacTests.xctest */;
+			productReference = 8F0042C92A9B89C50054CE7C /* new2Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		8F0042D22A9B89C50054CE7C /* VPet-MacUITests */ = {
+		8F0042D22A9B89C50054CE7C /* new2UITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8F0042E32A9B89C50054CE7C /* Build configuration list for PBXNativeTarget "VPet-MacUITests" */;
+			buildConfigurationList = 8F0042E32A9B89C50054CE7C /* Build configuration list for PBXNativeTarget "new2UITests" */;
 			buildPhases = (
 				8F0042CF2A9B89C50054CE7C /* Sources */,
 				8F0042D02A9B89C50054CE7C /* Frameworks */,
@@ -189,9 +195,9 @@
 			dependencies = (
 				8F0042D52A9B89C50054CE7C /* PBXTargetDependency */,
 			);
-			name = "VPet-MacUITests";
+			name = new2UITests;
 			productName = new2UITests;
-			productReference = 8F0042D32A9B89C50054CE7C /* VPet-MacUITests.xctest */;
+			productReference = 8F0042D32A9B89C50054CE7C /* new2UITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -217,7 +223,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 8F0042B32A9B89C30054CE7C /* Build configuration list for PBXProject "VPet-Mac" */;
+			buildConfigurationList = 8F0042B32A9B89C30054CE7C /* Build configuration list for PBXProject "new2" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -230,9 +236,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8F0042B72A9B89C30054CE7C /* VPet-Mac */,
-				8F0042C82A9B89C50054CE7C /* VPet-MacTests */,
-				8F0042D22A9B89C50054CE7C /* VPet-MacUITests */,
+				8F0042B72A9B89C30054CE7C /* new2 */,
+				8F0042C82A9B89C50054CE7C /* new2Tests */,
+				8F0042D22A9B89C50054CE7C /* new2UITests */,
 			);
 		};
 /* End PBXProject section */
@@ -274,6 +280,8 @@
 				8FE746692AA04A2F0098B14A /* FileSniffer.swift in Sources */,
 				8F524ACD2AA0C36200E138C7 /* StatusBarItemController.swift in Sources */,
 				8F0042BC2A9B89C30054CE7C /* AppDelegate.swift in Sources */,
+				8F52524F2AA33DB500E541A5 /* texts.swift in Sources */,
+				8F428B0D2AA341D000EB5CE4 /* ChooseActionMenu.swift in Sources */,
 				8FE7466B2AA051C00098B14A /* VPet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -300,12 +308,12 @@
 /* Begin PBXTargetDependency section */
 		8F0042CB2A9B89C50054CE7C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8F0042B72A9B89C30054CE7C /* VPet-Mac */;
+			target = 8F0042B72A9B89C30054CE7C /* new2 */;
 			targetProxy = 8F0042CA2A9B89C50054CE7C /* PBXContainerItemProxy */;
 		};
 		8F0042D52A9B89C50054CE7C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8F0042B72A9B89C30054CE7C /* VPet-Mac */;
+			target = 8F0042B72A9B89C30054CE7C /* new2 */;
 			targetProxy = 8F0042D42A9B89C50054CE7C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -505,7 +513,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VPet-Mac.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VPet-Mac";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/new2.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/new2";
 			};
 			name = Debug;
 		};
@@ -523,7 +531,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VPet-Mac.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VPet-Mac";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/new2.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/new2";
 			};
 			name = Release;
 		};
@@ -562,7 +570,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8F0042B32A9B89C30054CE7C /* Build configuration list for PBXProject "VPet-Mac" */ = {
+		8F0042B32A9B89C30054CE7C /* Build configuration list for PBXProject "new2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8F0042DB2A9B89C50054CE7C /* Debug */,
@@ -571,7 +579,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8F0042DD2A9B89C50054CE7C /* Build configuration list for PBXNativeTarget "VPet-Mac" */ = {
+		8F0042DD2A9B89C50054CE7C /* Build configuration list for PBXNativeTarget "new2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8F0042DE2A9B89C50054CE7C /* Debug */,
@@ -580,7 +588,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8F0042E02A9B89C50054CE7C /* Build configuration list for PBXNativeTarget "VPet-MacTests" */ = {
+		8F0042E02A9B89C50054CE7C /* Build configuration list for PBXNativeTarget "new2Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8F0042E12A9B89C50054CE7C /* Debug */,
@@ -589,7 +597,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8F0042E32A9B89C50054CE7C /* Build configuration list for PBXNativeTarget "VPet-MacUITests" */ = {
+		8F0042E32A9B89C50054CE7C /* Build configuration list for PBXNativeTarget "new2UITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8F0042E42A9B89C50054CE7C /* Debug */,

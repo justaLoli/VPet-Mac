@@ -232,11 +232,20 @@ class AnimePlayer{
         if frameCount == animeFrames.count{
             frameCount = 0;
             
+            
+            
             //removeCurrent
             if (removeCurrentAnimeAfterFinish){
                 removeCurrentAnimeAfterFinish = false;
                 playList.remove(at: playIndex);
                 playIndex = 0;//设置为第一个
+                return;
+            }
+            
+            // A or C
+            if(currentPlayAnimeInfo.animatype == .A_Start || currentPlayAnimeInfo.animatype == .C_End){
+                playList.remove(at: playIndex)
+                playIndex = 0;
                 return;
             }
             

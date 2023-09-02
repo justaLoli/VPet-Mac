@@ -10,5 +10,13 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "ViewController.onButtonClicked(_:):ViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "ACTIONMenu">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

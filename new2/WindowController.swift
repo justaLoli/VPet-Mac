@@ -28,6 +28,8 @@ class WindowController: NSWindowController,NSWindowDelegate {
         VPET = VPet(displayWindow: self, animeplayer: viewcontroller.player)
         VPET.startup()
         
+        viewcontroller.chooseActionMenu.sendVPET(VPET)
+        
 //        let windowController = self.view.window?.windowController as! WindowController
 //        let dragGesture = NSPanGestureRecognizer(target: viewcontroller, action: #selector(VPET.raised2(_:)))
 ////        yourCustomView.addGestureRecognizer(dragGesture)

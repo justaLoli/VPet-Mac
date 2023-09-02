@@ -15,7 +15,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="VPet_Mac" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="new2" customModuleProvider="target"/>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -24,7 +24,7 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController id="B8D-0N-5wS" customClass="WindowController" customModule="VPet_Mac" customModuleProvider="target" sceneMemberID="viewController">
+                <windowController id="B8D-0N-5wS" customClass="WindowController" customModule="new2" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" tabbingMode="disallowed" titlebarAppearsTransparent="YES" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" fullSizeContentView="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -44,10 +44,10 @@
             </objects>
             <point key="canvasLocation" x="75" y="250"/>
         </scene>
-        <!--VPet-Mac view controller-->
+        <!--ViewController-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController title="VPet-Mac view controller" storyboardIdentifier="new2ViewController" id="XfG-lQ-9wD" customClass="ViewController" customModule="VPet_Mac" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="ViewController" storyboardIdentifier="new2ViewController" id="XfG-lQ-9wD" customClass="ViewController" customModule="new2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -104,136 +104,40 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="ACTIONMenu" destination="lFS-x6-Pwn" id="VTI-9j-X3U"/>
-                        <outlet property="ACTIONMenuButton" destination="Y1B-vS-f4t" id="LhI-zH-zMu"/>
-                        <outlet property="BObutton" destination="DO2-vu-GvQ" id="pos-0b-q60"/>
-                        <outlet property="ZANbutton" destination="51e-lZ-Xsr" id="pZb-mt-GEb"/>
                         <outlet property="imagev" destination="931-U7-2q5" id="sbe-GK-LzR"/>
+                        <outlet property="viewMainMenu" destination="lFS-x6-Pwn" id="oKl-MP-ghd"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <menu id="lFS-x6-Pwn">
                     <items>
-                        <menuItem title="工作" id="aX2-U6-Rzd">
-                            <modifierMask key="keyEquivalentModifierMask"/>
-                            <menu key="submenu" title="工作" id="XFB-Wu-0BS">
-                                <items>
-                                    <menuItem title="PlayONE" id="ARk-bq-vEA" userLabel="PlayONE">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                        <connections>
-                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="UgP-LE-or9"/>
-                                        </connections>
-                                    </menuItem>
-                                    <menuItem title="RemoveObject" id="NTv-q4-8Ko">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                        <connections>
-                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="4Ct-QC-yi0"/>
-                                        </connections>
-                                    </menuItem>
-                                    <menuItem title="Study" id="4WP-7W-mIq">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                        <connections>
-                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="Mup-K6-DPm"/>
-                                        </connections>
-                                    </menuItem>
-                                    <menuItem title="StudyTWO" id="QOS-pm-tWp">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                        <connections>
-                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="OvO-XC-9b1"/>
-                                        </connections>
-                                    </menuItem>
-                                    <menuItem title="WorkClean" id="o0B-jR-YZz">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                        <connections>
-                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="vvI-f0-Cvu"/>
-                                        </connections>
-                                    </menuItem>
-                                    <menuItem title="WorkONE" id="i3H-sp-dx9">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                        <connections>
-                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="uRl-Si-AJm"/>
-                                        </connections>
-                                    </menuItem>
-                                    <menuItem title="WorkTWO" id="NxG-FM-7Q1">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                        <connections>
-                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="tKU-Vp-XNd"/>
-                                        </connections>
-                                    </menuItem>
-                                </items>
-                            </menu>
-                        </menuItem>
-                        <menuItem title="空闲" id="Ieb-Wn-vtH">
-                            <modifierMask key="keyEquivalentModifierMask"/>
-                            <menu key="submenu" title="空闲" id="CJR-Cd-g5h">
-                                <items>
-                                    <menuItem title="Boring" id="sig-WD-ala">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                        <connections>
-                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="LR3-qk-xFV"/>
-                                        </connections>
-                                    </menuItem>
-                                    <menuItem title="Squat" id="Nep-EZ-K8D">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                        <connections>
-                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="bUr-4r-DWT"/>
-                                        </connections>
-                                    </menuItem>
-                                </items>
-                            </menu>
-                        </menuItem>
-                        <menuItem title="Sleep" id="pa7-eP-7AB">
+                        <menuItem title="投喂" id="aX2-U6-Rzd">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
-                                <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="cRJ-96-kPy"/>
+                                <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="G1e-DF-RQv"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="说话" id="9ft-ME-AbL">
+                        <menuItem title="面板" id="Ieb-Wn-vtH">
                             <modifierMask key="keyEquivalentModifierMask"/>
-                            <menu key="submenu" title="说话" id="7vn-rn-Ar3">
-                                <items>
-                                    <menuItem title="Self" id="Ybt-o9-4M7">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                        <connections>
-                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="MdV-04-PLW"/>
-                                        </connections>
-                                    </menuItem>
-                                    <menuItem title="Serious" id="flg-Qj-NyH">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                        <connections>
-                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="pmt-tz-7ZQ"/>
-                                        </connections>
-                                    </menuItem>
-                                    <menuItem title="Shining" id="cbs-gQ-ZIv">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                        <connections>
-                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="qQC-Fi-ZEm"/>
-                                        </connections>
-                                    </menuItem>
-                                </items>
-                            </menu>
-                        </menuItem>
-                        <menuItem title="待机" id="gEV-CE-pck">
-                            <modifierMask key="keyEquivalentModifierMask"/>
-                            <menu key="submenu" title="待机" id="a0O-f7-T4s">
-                                <items>
-                                    <menuItem title="StateONE" id="KKd-On-kRe">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                        <connections>
-                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="Zjm-t4-gfm"/>
-                                        </connections>
-                                    </menuItem>
-                                    <menuItem title="StateTWO" id="hrB-3Z-YZc">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                        <connections>
-                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="DdF-7H-Xoz"/>
-                                        </connections>
-                                    </menuItem>
-                                </items>
-                            </menu>
                             <connections>
-                                <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="Fgq-MH-4Ta"/>
+                                <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="5tY-kj-PQg"/>
                             </connections>
+                        </menuItem>
+                        <menuItem title="互动" id="pa7-eP-7AB">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                        </menuItem>
+                        <menuItem title="系统" id="7Wq-mh-LxQ">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <menu key="submenu" title="系统" id="rl5-uM-Kwo">
+                                <items>
+                                    <menuItem title="退出" id="YbU-KL-ZfY">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="onActionMenuItemClicked:" target="XfG-lQ-9wD" id="POr-H2-6B3"/>
+                                        </connections>
+                                    </menuItem>
+                                </items>
+                            </menu>
                         </menuItem>
                     </items>
                 </menu>

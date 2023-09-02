@@ -16,6 +16,7 @@ class VPet{
     
     //栈，尾部为栈顶
     var VPetActionStack = [GraphInfo.GraphType]()
+    var VPetPlayListStack = [[GraphInfo]]()
     
     init(displayWindow: WindowController, animeplayer: AnimePlayer) {
         self.displayWindow = displayWindow
@@ -44,17 +45,25 @@ class VPet{
         switch VPetActionStack.last!{
         case .Default:
             makeDefault();break;
-//        case .
+//        case .Work:
+//            makeWork();break;
+//        case .Sleep
         default:
-            break;
+            reloadPlaylistFromStack();
         }
     }
     
     func makeDefault(){
         let list2 = animeplayer.animeInfoList.find(graphtype: .Default,modetype: VPetStatus).shuffled()
         animeplayer.setPlayList(list2)
-//        animeplayer.setPlayMode(.SingleLoop)
         animeplayer.setPlayMode(.Shuffle)
+        VPetPlayListStack.append(list2)
+    }
+    func reloadPlaylistFromStack(){
+        let list = VPetPlayListStack.last;
+        animeplayer.setPlayList(list ?? [GraphInfo]());
+        self.animeplayer.setPlayMode(.Shuffle)
+        
     }
     
     func shutdown(){
@@ -134,7 +143,10 @@ class VPet{
         updateAction()
     }
     
-    func play(_ searchkey:String){
+    func play(_ title:String){
+        let k = hardCodedText.actionToKeyword[title]!
+        let searchkey = k + "/"
+        ;
         var pl = [GraphInfo]()
         var lists = animeplayer.animeInfoList.find(animatype:.A_Start,modetype: VPetStatus, keywordinfilename: searchkey)
         ;
@@ -151,6 +163,10 @@ class VPet{
         self.animeplayer.interruptAndSetPlayList(pl)
         self.animeplayer.removeCurrentAnimeAfterFinish = true;
         self.animeplayer.setPlayMode(.Shuffle)
+        
+        let newActionGraphType = hardCodedText.actionToGraphType[title] ?? .Work
+        self.VPetActionStack.append(newActionGraphType)
+        self.VPetPlayListStack.append(pl)
     }
     
 }

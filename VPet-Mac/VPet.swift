@@ -12,11 +12,12 @@ class VPet{
     let animeplayer:AnimePlayer!
     var VPetStatus = GraphInfo.ModeType.Happy
     
+    
 //    var VPetCurrentMovement = GraphInfo.GraphType.Default
     
     //栈，尾部为栈顶
     var VPetActionStack = [GraphInfo.GraphType]()
-    var VPetPlayListStack = [[GraphInfo]]()
+    var currentActionTitle:String? = nil
     
     init(displayWindow: WindowController, animeplayer: AnimePlayer) {
         self.displayWindow = displayWindow
@@ -42,14 +43,16 @@ class VPet{
     }
     
     func updateAction(){
+//        print(")")
         switch VPetActionStack.last!{
         case .Default:
             makeDefault();break;
-//        case .Work:
-//            makeWork();break;
-//        case .Sleep
+        case .Work:
+            replayFromCurrentActionTitle();break;
+        case .Sleep:
+            replayFromCurrentActionTitle();break;
         default:
-            reloadPlaylistFromStack();
+            break;
         }
     }
     
@@ -57,13 +60,42 @@ class VPet{
         let list2 = animeplayer.animeInfoList.find(graphtype: .Default,modetype: VPetStatus).shuffled()
         animeplayer.setPlayList(list2)
         animeplayer.setPlayMode(.Shuffle)
-        VPetPlayListStack.append(list2)
     }
-    func reloadPlaylistFromStack(){
-        let list = VPetPlayListStack.last;
-        animeplayer.setPlayList(list ?? [GraphInfo]());
-        self.animeplayer.setPlayMode(.Shuffle)
+    
+    func replayFromCurrentActionTitle(){
+        guard currentActionTitle != nil else{return;}
+        guard let k = hardCodedText.actionToKeyword[currentActionTitle!] else{return}
+        let searchkey = k + "/"
+        ;
+        var pl = [GraphInfo]()
+        var lists = animeplayer.animeInfoList.find(animatype:.A_Start,modetype: VPetStatus, keywordinfilename: searchkey)
+        ;
+        if(!lists.isEmpty){
+            pl.append(lists.randomElement()!)
+        }
+        else{
+            var lists = animeplayer.animeInfoList.find(animatype:.A_Start,modetype: .Normal, keywordinfilename: searchkey)
+            ;
+            if(!lists.isEmpty){
+                pl.append(lists.randomElement()!)
+            }
+        }
+        lists = animeplayer.animeInfoList.find(animatype:.B_Loop,modetype: VPetStatus,keywordinfilename: searchkey)
+        if(!lists.isEmpty){
+            pl += lists;
+        }
+        else{
+            lists = animeplayer.animeInfoList.find(animatype:.B_Loop,modetype: .Normal,keywordinfilename: searchkey)
+            if(!lists.isEmpty){
+                pl += lists;
+            }
+        }
         
+        ;
+        
+        self.animeplayer.setPlayList(pl)
+        self.animeplayer.removeCurrentAnimeAfterFinish = true;
+        self.animeplayer.setPlayMode(.Shuffle)
     }
     
     func shutdown(){
@@ -143,8 +175,17 @@ class VPet{
         updateAction()
     }
     
-    func play(_ title:String){
-        let k = hardCodedText.actionToKeyword[title]!
+    func play(_ title:String,interrupt:Bool = true){
+        var isinterrupt = interrupt
+        if currentActionTitle != nil {
+            if(currentActionTitle != title){
+                //在已有事件的基础上，开启一个新的事件
+                endplayFromCurrentActionTitle()
+            }
+            //也有可能是重新播放当前事件
+            isinterrupt = false
+        }
+        guard let k = hardCodedText.actionToKeyword[title] else{return}
         let searchkey = k + "/"
         ;
         var pl = [GraphInfo]()
@@ -153,20 +194,61 @@ class VPet{
         if(!lists.isEmpty){
             pl.append(lists.randomElement()!)
         }
+        else{
+            var lists = animeplayer.animeInfoList.find(animatype:.A_Start,modetype: .Normal, keywordinfilename: searchkey)
+            ;
+            if(!lists.isEmpty){
+                pl.append(lists.randomElement()!)
+            }
+        }
         lists = animeplayer.animeInfoList.find(animatype:.B_Loop,modetype: VPetStatus,keywordinfilename: searchkey)
         if(!lists.isEmpty){
-//            pl.append(lists.randomElement()!)
             pl += lists;
+        }
+        else{
+            lists = animeplayer.animeInfoList.find(animatype:.B_Loop,modetype: .Normal,keywordinfilename: searchkey)
+            if(!lists.isEmpty){
+                pl += lists;
+            }
         }
         
         ;
-        self.animeplayer.interruptAndSetPlayList(pl)
+        if(lists.isEmpty){
+            print("play: 播放列表为空，可能当前心情没有当前动作。");return;
+        }
+        if(isinterrupt){
+            self.animeplayer.interruptAndSetPlayList(pl)
+        }
+        else{
+            self.animeplayer.setPlayList(pl)
+        }
         self.animeplayer.removeCurrentAnimeAfterFinish = true;
         self.animeplayer.setPlayMode(.Shuffle)
         
         let newActionGraphType = hardCodedText.actionToGraphType[title] ?? .Work
         self.VPetActionStack.append(newActionGraphType)
-        self.VPetPlayListStack.append(pl)
+        self.currentActionTitle = title;
+    }
+    func endplayFromCurrentActionTitle(){
+        guard currentActionTitle != nil else{return;}
+        guard let k = hardCodedText.actionToKeyword[self.currentActionTitle!] else{return;}
+        let searchkey = k + "/"
+        let lists = animeplayer.animeInfoList.find(animatype:.C_End,modetype: VPetStatus,keywordinfilename: searchkey);
+        var pl = [GraphInfo]()
+        if(!lists.isEmpty){
+            pl.append(lists.randomElement()!)
+        }
+        else{
+            let lists = animeplayer.animeInfoList.find(animatype:.C_End,modetype: .Normal,keywordinfilename: searchkey);
+            if(!lists.isEmpty){
+                pl.append(lists.randomElement()!)
+            }
+        }
+        animeplayer.interruptAndSetPlayList(pl)
+        animeplayer.removeCurrentAnimeAfterFinish = true;
+        self.VPetActionStack.removeLast();
+        self.currentActionTitle = nil;
+        updateAction()
     }
     
 }

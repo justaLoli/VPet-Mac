@@ -161,9 +161,11 @@ class ViewController: NSViewController {
         case "退出":
             VPET.shutdown();break;
         case "退出当前互动":
-            VPET.VPetActionStack.removeLast();
-            VPET.VPetPlayListStack.removeLast();
-            VPET.updateAction()
+            VPET.endplayFromCurrentActionTitle();
+            VPET.updateAction();break;
+//            VPET.VPetActionStack.removeLast();
+            
+//            VPET.updateAction()
         default:break;
         }
     }

@@ -3,6 +3,14 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "VPet.endplayFromCurrentActionTitle():VPet.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "currentActionTitle">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "AnimePlayer.playerFrameHandler(_:):AnimePlayer.swift">
          <PersistentStrings>
             <PersistentString

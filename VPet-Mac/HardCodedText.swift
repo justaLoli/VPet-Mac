@@ -13,7 +13,12 @@ import Cocoa
 
 class HardCodedText{
     
-    var actionMenus = ["睡觉","学习","玩耍","工作"]
+    var actionMenus = [
+        "睡觉",
+        "---",
+        "学习",
+        "玩耍",
+        "工作"]
     var actionTypesShownInMenu = [
         "睡觉":["睡觉"],
         "学习":["学习","研究"],

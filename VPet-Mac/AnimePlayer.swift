@@ -147,6 +147,8 @@ class AnimePlayer{
         timer = nil
         //把播放进度设为0
         frameCount = 0
+        singleFrameTimeCount = 0;
+        currentFrameTimeLength = 0;
         playIndex = 0
         
     }

@@ -40,9 +40,19 @@ class ChooseActionMenu {
         self.VPET = VPET
     }
     func inflateMenu(){
+        let actionMenus = hardCodedText.actionMenus
         let actionTypesShownInMenu = hardCodedText.actionTypesShownInMenu
+        // 按照顺序添加，顺序来自 hardCodedText.actionMenus
         
-        for (category, actions) in actionTypesShownInMenu {
+        for category in actionMenus{
+            guard let actions = actionTypesShownInMenu[category] else{
+                if category == "---"{
+                    //add a separator
+                    menu.addItem(NSMenuItem.separator())
+                    
+                }
+                continue
+            }
             // if there is only one action， dont add submenu
             if actions.count == 1 {
                 let menuItem = NSMenuItem(title: category, action: #selector(menuItemClicked), keyEquivalent: "")
@@ -50,7 +60,7 @@ class ChooseActionMenu {
                 menu.addItem(menuItem)
                 continue
             }
-            
+
             // Create a submenu for each category
             let submenu = NSMenu(title: category)
 
@@ -72,8 +82,10 @@ class ChooseActionMenu {
     @objc func menuItemClicked(_ sender: NSMenuItem) {
         // Do something when a menu item is clicked
         print("Menu item clicked: \(sender.title)")
-//        VPET?.shutdown()
-        
+        if(VPET?.currentActionTitle == sender.title){
+            VPET?.endplayFromCurrentActionTitle()
+            return;
+        }
         VPET?.play(sender.title)
     }
     

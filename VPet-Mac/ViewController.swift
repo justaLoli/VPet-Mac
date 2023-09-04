@@ -72,6 +72,14 @@ class ViewController: NSViewController {
         //鼠标事件：鼠标右键切换按钮的显示和隐藏
         NSEvent.addLocalMonitorForEvents(matching: [.leftMouseDown, .leftMouseUp, .rightMouseDown, .rightMouseUp, .mouseMoved, .leftMouseDragged], handler: { (event) -> NSEvent? in
             switch event.type{
+            case .leftMouseDown:
+                guard let windowController = self.view.window?.windowController as? WindowController else{
+                    return event
+                }
+                guard let VPET = windowController.VPET else{
+                    return event
+                }
+                VPET.handleLeftMouseDown(event.locationInWindow)
             case .rightMouseUp:
 //                for subview in self.view.subviews{
 //                    if let button = subview as? NSButton{
@@ -91,7 +99,7 @@ class ViewController: NSViewController {
                 guard let VPET = windowController.VPET else{
                     return event
                 }
-                VPET.raised(event.locationInWindow)
+                VPET.handleLeftMouseDragged(event.locationInWindow)
                 break;
             case .leftMouseUp:
                 guard let windowController = self.view.window?.windowController as? WindowController else{
@@ -157,12 +165,12 @@ class ViewController: NSViewController {
             case .Normal:VPET.VPetStatus = .PoorCondition;break;
             case .PoorCondition:VPET.VPetStatus = .Ill;break;
             }
-            VPET.updateAction();break;
+            VPET.updateAnimation();break;
         case "退出":
             VPET.shutdown();break;
         case "退出当前互动":
-            VPET.endplayFromCurrentActionTitle();
-            VPET.updateAction();break;
+            VPET.workAndSleepHandler.endplayFromCurrentActionTitle();
+            VPET.updateAnimation();break;
 //            VPET.VPetActionStack.removeLast();
             
 //            VPET.updateAction()

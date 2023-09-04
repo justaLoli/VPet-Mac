@@ -19,6 +19,9 @@
 		8F524ACD2AA0C36200E138C7 /* StatusBarItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F524ACC2AA0C36100E138C7 /* StatusBarItemController.swift */; };
 		8F52524F2AA33DB500E541A5 /* HardCodedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52524E2AA33DB500E541A5 /* HardCodedText.swift */; };
 		8F6F82802A9E376E00664375 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6F827E2A9E376E00664375 /* WindowController.swift */; };
+		8FDCD2702AA4C59100E2AC04 /* VPet-raise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDCD26F2AA4C59100E2AC04 /* VPet-raise.swift */; };
+		8FDCD2722AA5A68B00E2AC04 /* VPet-work.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDCD2712AA5A68B00E2AC04 /* VPet-work.swift */; };
+		8FDCD2742AA5A7A800E2AC04 /* VPet-autoaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDCD2732AA5A7A800E2AC04 /* VPet-autoaction.swift */; };
 		8FE746692AA04A2F0098B14A /* FileSniffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE746682AA04A2F0098B14A /* FileSniffer.swift */; };
 		8FE7466B2AA051C00098B14A /* VPet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE7466A2AA051C00098B14A /* VPet.swift */; };
 /* End PBXBuildFile section */
@@ -58,6 +61,9 @@
 		8F52524E2AA33DB500E541A5 /* HardCodedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardCodedText.swift; sourceTree = "<group>"; };
 		8F6F827E2A9E376E00664375 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		8FC9CD842AA238120041F177 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		8FDCD26F2AA4C59100E2AC04 /* VPet-raise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VPet-raise.swift"; sourceTree = "<group>"; };
+		8FDCD2712AA5A68B00E2AC04 /* VPet-work.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VPet-work.swift"; sourceTree = "<group>"; };
+		8FDCD2732AA5A7A800E2AC04 /* VPet-autoaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VPet-autoaction.swift"; sourceTree = "<group>"; };
 		8FE746682AA04A2F0098B14A /* FileSniffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSniffer.swift; sourceTree = "<group>"; };
 		8FE7466A2AA051C00098B14A /* VPet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -123,6 +129,9 @@
 				8F524ACC2AA0C36100E138C7 /* StatusBarItemController.swift */,
 				8F52524E2AA33DB500E541A5 /* HardCodedText.swift */,
 				8F428B0C2AA341D000EB5CE4 /* ChooseActionMenu.swift */,
+				8FDCD26F2AA4C59100E2AC04 /* VPet-raise.swift */,
+				8FDCD2712AA5A68B00E2AC04 /* VPet-work.swift */,
+				8FDCD2732AA5A7A800E2AC04 /* VPet-autoaction.swift */,
 			);
 			path = "VPet-Mac";
 			sourceTree = "<group>";
@@ -279,8 +288,11 @@
 				8F6F82802A9E376E00664375 /* WindowController.swift in Sources */,
 				8FE746692AA04A2F0098B14A /* FileSniffer.swift in Sources */,
 				8F524ACD2AA0C36200E138C7 /* StatusBarItemController.swift in Sources */,
+				8FDCD2722AA5A68B00E2AC04 /* VPet-work.swift in Sources */,
 				8F0042BC2A9B89C30054CE7C /* AppDelegate.swift in Sources */,
+				8FDCD2742AA5A7A800E2AC04 /* VPet-autoaction.swift in Sources */,
 				8F52524F2AA33DB500E541A5 /* HardCodedText.swift in Sources */,
+				8FDCD2702AA4C59100E2AC04 /* VPet-raise.swift in Sources */,
 				8F428B0D2AA341D000EB5CE4 /* ChooseActionMenu.swift in Sources */,
 				8FE7466B2AA051C00098B14A /* VPet.swift in Sources */,
 			);

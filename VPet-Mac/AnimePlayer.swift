@@ -12,6 +12,62 @@ class AnimeInfoList{
     init(_ playlist: [GraphInfo] = [GraphInfo]()) {
         self.playlist = playlist
     }
+    func generatePlayListC(graphtype:GraphInfo.GraphType? = nil,modetype:GraphInfo.ModeType? = nil, keywordinfilename:String? = nil,title:String? = nil) -> [GraphInfo]{
+        var searchkey:String? = nil;
+        if(title != nil){searchkey = title! + "/"}
+        var pl = [GraphInfo]()
+        
+        var lists = find(animatype: .C_End,modetype: modetype,keywordinfilename: searchkey);
+        if(!lists.isEmpty){pl.append(lists.randomElement()!)}
+        else{
+            lists = find(animatype: .C_End,modetype: .Normal,keywordinfilename: searchkey);
+            if(!lists.isEmpty){pl.append(lists.randomElement()!)}
+        }
+        return pl;
+    }
+    func generatePlayListB(graphtype:GraphInfo.GraphType? = nil,modetype:GraphInfo.ModeType? = nil, keywordinfilename:String? = nil,title:String? = nil) -> [GraphInfo]{
+        var searchkey:String? = nil;
+        if(title != nil){searchkey = title! + "/"}
+        var lists = find(animatype: .B_Loop,modetype: modetype,keywordinfilename: searchkey);
+        if(!lists.isEmpty){return lists}
+        lists = find(animatype: .B_Loop,modetype: .Normal,keywordinfilename: searchkey);
+        return lists
+    }
+    func generatePlayListAB(graphtype:GraphInfo.GraphType? = nil,
+                            modetype:GraphInfo.ModeType? = nil,
+                            keywordinfilename:String? = nil,title:String? = nil) -> [GraphInfo]{
+        var searchkey:String? = nil;
+        if(title != nil){
+            searchkey = title! + "/"
+        }
+        ;
+        var pl = [GraphInfo]()
+        var lists = find(animatype:.A_Start,modetype: modetype, keywordinfilename: searchkey)
+        ;
+        if(!lists.isEmpty){
+            pl.append(lists.randomElement()!)
+        }
+        else{
+            let lists = find(animatype:.A_Start,modetype: .Normal, keywordinfilename: searchkey)
+            ;
+            if(!lists.isEmpty){
+                pl.append(lists.randomElement()!)
+            }
+        }
+        lists = find(animatype:.B_Loop,modetype: modetype,keywordinfilename: searchkey)
+        if(!lists.isEmpty){
+            pl += lists;
+        }
+        else{
+            lists = find(animatype:.B_Loop,modetype: .Normal,keywordinfilename: searchkey)
+            if(!lists.isEmpty){
+                pl += lists;
+            }
+        }
+        
+        ;
+        return pl;
+    }
     func find(animatype:GraphInfo.AnimatType? = nil,
               graphtype:GraphInfo.GraphType? = nil,
               modetype:GraphInfo.ModeType? = nil,
@@ -190,13 +246,13 @@ class AnimePlayer{
     }
     
     @objc private func playerFrameHandler(_ timer: Timer?) -> Void {
-//        if(frameCount == 0){
-//            for i in playList{
-//                print(i.generateName())
-//            }
-//            print(playIndex)
-//            print("")
-//        }
+        if(frameCount == 0){
+            for i in playList{
+                print(i.generateName())
+            }
+            print(playIndex)
+            print("")
+        }
         //确保播放列表非空
 //        guard let currentPlayAnimeInfo = playList.first else{stopAndReset();return}
         if !(playIndex < playList.count && playIndex >= 0){stopAndReset();return;}

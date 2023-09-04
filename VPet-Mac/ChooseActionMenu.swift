@@ -77,16 +77,19 @@ class ChooseActionMenu {
             menu.addItem(NSMenuItem(title: category, action: nil, keyEquivalent: ""))
             menu.setSubmenu(submenu, for: menu.item(withTitle: category)!)
         }
+        let item = NSMenuItem(title: "移动动画", action: #selector(menuItemClicked), keyEquivalent: "")
+        item.target = self;
+        menu.addItem(item)
     }
     
     @objc func menuItemClicked(_ sender: NSMenuItem) {
         // Do something when a menu item is clicked
         print("Menu item clicked: \(sender.title)")
-        if(VPET?.currentActionTitle == sender.title){
-            VPET?.endplayFromCurrentActionTitle()
+        if(VPET?.workAndSleepHandler.currentActionTitle == sender.title){
+            VPET?.workAndSleepHandler.endplayFromCurrentActionTitle()
             return;
         }
-        VPET?.play(sender.title)
+        VPET?.workAndSleepHandler.play(sender.title)
     }
     
 

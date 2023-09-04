@@ -129,22 +129,22 @@ class GraphInfo:Hashable{
             }
         }
         
-        if filepath.contains("/A") || filepathlower.contains("start"){
+        if filepath.contains("/A/") || filepath.contains("/A_") || filepathlower.contains("start"){
           self.animatype = AnimatType.A_Start
        }
-       else if filepath.contains("/B") || filepathlower.contains("loop"){
+       else if filepath.contains("/B/") || filepath.contains("/B_") || filepathlower.contains("loop"){
           self.animatype = AnimatType.B_Loop
        }
-       else if filepath.contains("/C") || filepathlower.contains("end"){
+       else if filepath.contains("/C/") || filepath.contains("/C_") || filepathlower.contains("end"){
           self.animatype = AnimatType.C_End
        }
        else{
-           if filepath.contains("A"){self.animatype = .A_Start}
-           else if filepath.contains("B"){self.animatype = .B_Loop}
-           else if filepath.contains("C"){self.animatype = .C_End}
-           else{
+//           if filepath.contains("A"){self.animatype = .A_Start}
+//           else if filepath.contains("B"){self.animatype = .B_Loop}
+//           else if filepath.contains("C"){self.animatype = .C_End}
+//           else{
                self.animatype = .Single
-           }
+//           }
        }
 //
         var filepathseparated = filepath.lowercased().split(separator: "/")

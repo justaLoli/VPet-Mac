@@ -79,7 +79,18 @@ class AnimePlayer{
     init(_ ImageView: NSImageView?) {
         self.ImageView = ImageView
         //文件读取所有动画
-        self.allAnimes = FileSniffer("/Users/justaloli/Downloads/0000_core/pet/vup").sniff()
+//
+//        guard let assetsURL = Bundle.main.resourceURL?.appendingPathComponent("0000_core/pet/vup") else{
+//            print("strange... cant get the assets file.")
+//            return;
+//        }
+        
+        // 从内置资源文件中读取动画
+        let assetsURL = Bundle.main.resourceURL?.appendingPathComponent("0000_core/pet/vup");
+        print(assetsURL!.path);
+
+        
+        self.allAnimes = FileSniffer(assetsURL!.path).sniff()
         animeInfoList = AnimeInfoList(Array(allAnimes.keys))
     }
     

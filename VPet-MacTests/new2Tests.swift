@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import new2
+@testable import VPet_Mac
 
 final class new2Tests: XCTestCase {
 

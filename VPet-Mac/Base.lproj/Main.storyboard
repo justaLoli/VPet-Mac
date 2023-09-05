@@ -93,6 +93,33 @@
                                     <action selector="onButtonClicked:" target="XfG-lQ-9wD" id="CCD-eo-30q"/>
                                 </connections>
                             </button>
+                            <customView appearanceType="darkAqua" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HFa-US-B6n">
+                                <rect key="frame" x="69" y="13" width="163" height="96"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k6K-QB-mlw">
+                                        <rect key="frame" x="-2" y="0.0" width="165" height="96"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" borderStyle="border" alignment="right" title="当前正在" drawsBackground="YES" id="1oY-TY-U2O">
+                                            <font key="font" metaFont="system" size="18"/>
+                                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29934630102040816" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <button identifier="workOverlayStopButton" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ckP-Vp-7mE">
+                                        <rect key="frame" x="0.0" y="0.0" width="163" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="bevel" title="停止..." bezelStyle="rounded" alignment="center" inset="2" id="p53-it-b54">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                        <connections>
+                                            <action selector="onButtonClicked:" target="XfG-lQ-9wD" id="alV-Fg-xhQ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </customView>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Y1B-vS-f4t" secondAttribute="trailing" id="Jl2-Af-GVE"/>
@@ -106,6 +133,9 @@
                     <connections>
                         <outlet property="imagev" destination="931-U7-2q5" id="sbe-GK-LzR"/>
                         <outlet property="viewMainMenu" destination="lFS-x6-Pwn" id="oKl-MP-ghd"/>
+                        <outlet property="workingOverlayStop" destination="ckP-Vp-7mE" id="Vx2-Gy-pY1"/>
+                        <outlet property="workingOverlayTitle" destination="k6K-QB-mlw" id="RhE-m5-Yp3"/>
+                        <outlet property="workingOverlayView" destination="HFa-US-B6n" id="hTJ-mb-Zw6"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

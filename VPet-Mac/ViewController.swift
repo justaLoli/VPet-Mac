@@ -10,14 +10,18 @@ import Cocoa
 class ViewController: NSViewController {
     
     //抄的
-    @IBOutlet var imagev: NSImageView!
+    @IBOutlet weak var imagev: NSImageView!
     //注意这一行左边有个圆圈。要在storyboard里面，viewcontroller，右键，菜单中找到这个imagev，和视图中的imageview连线，这样左边的圈变成实心的。
     
     var chooseActionMenu = ChooseActionMenu()
-    @IBOutlet var viewMainMenu:NSMenu!
+    @IBOutlet weak var viewMainMenu:NSMenu!
     
     var player: AnimePlayer!
     
+    
+    @IBOutlet weak var workingOverlayView: NSView!
+    @IBOutlet weak var workingOverlayTitle: NSTextField!
+    @IBOutlet weak var workingOverlayStop: NSButton!
     
     
     override func viewDidLoad() {
@@ -28,46 +32,25 @@ class ViewController: NSViewController {
         //让imageview的大小和window一致（整个程序生命中都应该保证这一点）
         //写在window里面了
 //        imagev.setFrameSize(self.view.window!.frame.size)
-        initButtons()
+        initButton()
+        initMouseEvent()
         initViewMainMenu()
 
     }
     func initViewMainMenu(){
         self.view.menu = viewMainMenu
         self.view.menu?.item(withTitle: "互动")!.submenu = chooseActionMenu.menu
-        self.view.menu?.addItem(withTitle: "退出当前互动", action: #selector(onActionMenuItemClicked),keyEquivalent: "")
+//        self.view.menu?.addItem(withTitle: "退出当前互动", action: #selector(onActionMenuItemClicked),keyEquivalent: "")
     }
-    
-    
-    //我超 还有IBAction这种东西
-//    @IBAction func drag(_ sender: NSPanGestureRecognizer) {
-//        print("drag")
-//        return
-//        guard let windowController = self.view.window?.windowController as? WindowController else{return}
-//        guard let VPET = windowController.VPET else{return}
-//
-//        if sender.state == .began {
-//            print("拖动开始")
-//            VPET.raisedStart()
-//            //增加响应速度用的
-//            VPET.raisedMoving(sender.location(in: self.view))
-////
-//        } else if sender.state == .changed {
-//            print("进行中")
-//            VPET.raisedMoving(sender.location(in: self.view))
-//        } else if sender.state == .ended {
-//            print("end")
-//            VPET.raisedEnd()
-//        }
-//    }
-    
-    func initButtons(){
-        
+    func initButton(){
         for subv in self.view.subviews{
             if let button = subv as? NSButton{
                 button.isHidden = true
             }
         }
+        self.workingOverlayView.isHidden = true;
+    }
+    func initMouseEvent(){
         
         //鼠标事件：鼠标右键切换按钮的显示和隐藏
         NSEvent.addLocalMonitorForEvents(matching: [.leftMouseDown, .leftMouseUp, .rightMouseDown, .rightMouseUp, .mouseMoved, .leftMouseDragged], handler: { (event) -> NSEvent? in
@@ -118,33 +101,16 @@ class ViewController: NSViewController {
     
     
     @IBAction func onButtonClicked(_ sender: NSButton) {
-//        guard let windowController = self.view.window?.windowController as? WindowController else{
-//            return;
-//        }
-//        guard let VPET = windowController.VPET else{
-//            return;
-//        }
-//        if(sender.title == "退出"){
-//            self.ZANbutton.isHidden = !self.ZANbutton.isHidden
-//            self.BObutton.isHidden = !self.BObutton.isHidden
-//            self.ACTIONMenuButton.isHidden = !self.ACTIONMenuButton.isHidden
-//            VPET.shutdown()
-//        }
-//        else if(sender.title == "切换状态"){
-//            switch VPET.VPetStatus{
-//            case .Ill: VPET.VPetStatus = .Happy;break;
-//            case .Happy:VPET.VPetStatus = .Normal;break;
-//            case .Normal:VPET.VPetStatus = .PoorCondition;break;
-//            case .PoorCondition:VPET.VPetStatus = .Ill;break;
-//        }
-//            VPET.updateAction()
-////            ACTIONMenu
-//        }
-//        else if(sender.title == "动作"){
-//            chooseActionMenu.sendVPET(VPET)
-//            ACTIONMenuButton.menu = chooseActionMenu.menu
-//            ACTIONMenuButton.menu?.popUp(positioning: nil, at: NSPoint(x: 0, y: 0), in: ACTIONMenuButton)
-//        }
+        if(sender.identifier?.rawValue == "workOverlayStopButton"){
+            guard let windowController = self.view.window?.windowController as? WindowController else{
+                return;
+            }
+            guard let VPET = windowController.VPET else{
+                return;
+            }
+            VPET.workAndSleepHandler.endplayFromCurrentActionTitle();
+            VPET.updateAnimation();
+        }
     }
     
     
@@ -168,12 +134,7 @@ class ViewController: NSViewController {
             VPET.updateAnimation();break;
         case "退出":
             VPET.shutdown();break;
-        case "退出当前互动":
-            VPET.workAndSleepHandler.endplayFromCurrentActionTitle();
-            VPET.updateAnimation();break;
-//            VPET.VPetActionStack.removeLast();
-            
-//            VPET.updateAction()
+        case "退出当前互动":break;
         default:break;
         }
     }

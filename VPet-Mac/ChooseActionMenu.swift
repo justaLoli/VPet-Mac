@@ -77,9 +77,9 @@ class ChooseActionMenu {
             menu.addItem(NSMenuItem(title: category, action: nil, keyEquivalent: ""))
             menu.setSubmenu(submenu, for: menu.item(withTitle: category)!)
         }
-        let item = NSMenuItem(title: "移动动画", action: #selector(menuItemClicked), keyEquivalent: "")
-        item.target = self;
-        menu.addItem(item)
+//        let item = NSMenuItem(title: "移动动画", action: #selector(menuItemClicked), keyEquivalent: "")
+//        item.target = self;
+//        menu.addItem(item)
     }
     
     @objc func menuItemClicked(_ sender: NSMenuItem) {

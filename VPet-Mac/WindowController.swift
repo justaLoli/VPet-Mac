@@ -25,7 +25,7 @@ class WindowController: NSWindowController,NSWindowDelegate {
         
 //        let appDelegate = NSApplication.shared.delegate as! AppDelegate
 //        appDelegate.VPET = VPET
-        VPET = VPet(displayWindow: self, animeplayer: viewcontroller.player)
+        VPET = VPet(displayWindow: self, animeplayer: viewcontroller.player,displayView: viewcontroller)
         VPET.startup()
         
         viewcontroller.chooseActionMenu.sendVPET(VPET)

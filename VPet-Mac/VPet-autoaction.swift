@@ -30,11 +30,18 @@ class VPetAutoActionHandler{
     
     var chooseGraphType:GraphInfo.GraphType!
     var chooseAnimeTitle:String!
-    
+    func enableAutoAction() -> Bool{
+        let t = VPET.VPetGraphTypeStack.last
+        if((t == .Sleep && VPET.workAndSleepHandler.currentActionTitle != nil) || t == .Shutdown || t == .Raised_Static || t == .Raised_Dynamic){
+            return false;
+        }
+        return true;
+    }
     func startAutoAction(){
+        if(!enableAutoAction()){print("current dont allow autoaction");return;}
+        
         print("start")
         chooseGraphType = autoActions.randomElement()!.key
-//        chooseGraphType = GraphInfo.GraphType.Idel
 
         chooseAnimeTitle = autoActions[chooseGraphType!]!.randomElement()!
         
@@ -46,7 +53,7 @@ class VPetAutoActionHandler{
         
     }
     func playAutoAction(){
-        let pl = VPET.animeplayer.animeInfoList.generatePlayListAB(graphtype:chooseGraphType,modetype: VPET.VPetStatus,title: chooseAnimeTitle);
+        let pl = VPET.generatePlayListAB(graphtype:chooseGraphType,modetype: VPET.VPetStatus,title: chooseAnimeTitle);
         //更新主类动作栈
         VPET.VPetGraphTypeStack.append(chooseGraphType);
         VPET.animeplayer.setPlayList(pl);
@@ -56,10 +63,20 @@ class VPetAutoActionHandler{
     func switchToNextAutoAction(){
         
     }
+    func instantlyendAutoAction(){
+        guard autoActionStarted else{return}
+        autoActionStarted = false;
+        VPET.animeplayer.interruptAndSetPlayList([]);
+        //更新主类动作栈
+        if !(autoActions.keys.contains(VPET.VPetGraphTypeStack.last!)){
+            print("instantlyendAutoAction: strange. stack top is not an autoaction")
+        }
+        VPET.VPetGraphTypeStack.removeLast();
+    }
     func endAutoAction(){
         guard autoActionStarted else{return}
         autoActionStarted = false;
-        let pl = VPET.animeplayer.animeInfoList.generatePlayListC(graphtype: chooseGraphType, modetype: VPET.VPetStatus, title: chooseAnimeTitle);
+        let pl = VPET.generatePlayListC(graphtype: chooseGraphType, modetype: VPET.VPetStatus, title: chooseAnimeTitle);
         VPET.animeplayer.interruptAndSetPlayList(pl);
         VPET.animeplayer.setPlayMode(.Shuffle);
         autoActionStarted = false;
@@ -71,7 +88,7 @@ class VPetAutoActionHandler{
         if(chooseGraphType == .StateTWO){
             chooseGraphType = .StateONE
             chooseAnimeTitle = autoActions[chooseGraphType!]!.randomElement()!
-            let pl = VPET.animeplayer.animeInfoList.generatePlayListB(graphtype: .StateONE, modetype: VPET.VPetStatus, title: chooseAnimeTitle)
+            let pl = VPET.generatePlayListB(graphtype: .StateONE, modetype: VPET.VPetStatus, title: chooseAnimeTitle)
             VPET.VPetGraphTypeStack.append(chooseGraphType);
             VPET.animeplayer.setPlayList(pl);
             VPET.animeplayer.setPlayMode(.Shuffle)

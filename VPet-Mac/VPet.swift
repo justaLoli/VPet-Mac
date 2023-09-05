@@ -9,6 +9,7 @@ import Cocoa
 
 class VPet{
     let displayWindow:WindowController!
+    let displayView:ViewController!
     let animeplayer:AnimePlayer!
     var VPetStatus = GraphInfo.ModeType.Happy
     
@@ -27,9 +28,10 @@ class VPet{
     
     
     
-    init(displayWindow: WindowController, animeplayer: AnimePlayer) {
+    init(displayWindow: WindowController, animeplayer: AnimePlayer,displayView:ViewController) {
         self.displayWindow = displayWindow
         self.animeplayer = animeplayer
+        self.displayView = displayView
         
         self.raiseHandler = VPetRaiseHandler(self)
         self.workAndSleepHandler = VPetWorkHandler(self)
@@ -121,26 +123,29 @@ class VPet{
     // 提起
     
     func handleLeftMouseDown(_ p:NSPoint? = nil){
+        print("无操作互动周期清零！")
         HuDongZhouQiCountWithoutAction = 0
     }
     
     func handleLeftMouseUp(_ p:NSPoint? = nil){
+        
         if(self.autoActionHendler.autoActionStarted){
             self.autoActionHendler.endAutoAction()
             return;
         }
+        //当前在睡觉？那么叫醒！
+        if(self.VPetGraphTypeStack.last == .Sleep){
+            self.workAndSleepHandler.endplayFromCurrentActionTitle()
+        }
         if(self.VPetGraphTypeStack.last == .Raised_Static || self.VPetGraphTypeStack.last == .Raised_Dynamic){
-//            raisedEnd()
             self.raiseHandler.raisedEnd()
         }
     }
     
     func handleLeftMouseDragged(_ p: NSPoint){
         if(self.VPetGraphTypeStack.last != .Raised_Static && self.VPetGraphTypeStack.last != .Raised_Dynamic){
-//            raisedStart()
             self.raiseHandler.raisedStart()
         }
-//        raisedMoving(p)
         self.raiseHandler.raisedMoving(p)
     }
     
@@ -155,6 +160,69 @@ class VPet{
     // 播放互动
     
    
+    // 播放列表生成
+    // 播放列表生成
+    // 播放列表生成
+    
+    func generatePlayListC(graphtype:GraphInfo.GraphType? = nil,modetype:GraphInfo.ModeType? = nil, keywordinfilename:String? = nil,title:String? = nil) -> [GraphInfo]{
+        var searchkey:String? = nil;
+        if(title != nil){searchkey = title! + "/"}
+        if(keywordinfilename != nil){searchkey = keywordinfilename}
+        var pl = [GraphInfo]()
+        
+        var lists = animeplayer.animeInfoList.find(animatype: .C_End,modetype: modetype,keywordinfilename: searchkey);
+        if(!lists.isEmpty){pl.append(lists.randomElement()!)}
+        else{
+            lists = animeplayer.animeInfoList.find(animatype: .C_End,modetype: .Normal,keywordinfilename: searchkey);
+            if(!lists.isEmpty){pl.append(lists.randomElement()!)}
+        }
+        return pl;
+    }
+    func generatePlayListB(graphtype:GraphInfo.GraphType? = nil,modetype:GraphInfo.ModeType? = nil, keywordinfilename:String? = nil,title:String? = nil) -> [GraphInfo]{
+        var searchkey:String? = nil;
+        if(title != nil){searchkey = title! + "/"}
+        if(keywordinfilename != nil){searchkey = keywordinfilename}
+        var lists = animeplayer.animeInfoList.find(animatype: .B_Loop,modetype: modetype,keywordinfilename: searchkey);
+        if(!lists.isEmpty){return lists}
+        lists = animeplayer.animeInfoList.find(animatype: .B_Loop,modetype: .Normal,keywordinfilename: searchkey);
+        return lists
+    }
+    func generatePlayListAB(graphtype:GraphInfo.GraphType? = nil,
+                            modetype:GraphInfo.ModeType? = nil,
+                            keywordinfilename:String? = nil,title:String? = nil) -> [GraphInfo]{
+        var searchkey:String? = nil;
+        if(title != nil){
+            searchkey = title! + "/"
+        }
+        if(keywordinfilename != nil){searchkey = keywordinfilename}
+        ;
+        var pl = [GraphInfo]()
+        var lists = animeplayer.animeInfoList.find(animatype:.A_Start,modetype: modetype, keywordinfilename: searchkey)
+        ;
+        if(!lists.isEmpty){
+            pl.append(lists.randomElement()!)
+        }
+        else{
+            let lists = animeplayer.animeInfoList.find(animatype:.A_Start,modetype: .Normal, keywordinfilename: searchkey)
+            ;
+            if(!lists.isEmpty){
+                pl.append(lists.randomElement()!)
+            }
+        }
+        lists = animeplayer.animeInfoList.find(animatype:.B_Loop,modetype: modetype,keywordinfilename: searchkey)
+        if(!lists.isEmpty){
+            pl += lists;
+        }
+        else{
+            lists = animeplayer.animeInfoList.find(animatype:.B_Loop,modetype: .Normal,keywordinfilename: searchkey)
+            if(!lists.isEmpty){
+                pl += lists;
+            }
+        }
+        
+        ;
+        return pl;
+    }
     
     
     

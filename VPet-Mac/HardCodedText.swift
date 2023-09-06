@@ -73,7 +73,7 @@ class HardCodedText{
                "walk.left",
                "walk.right",
                "walk.left.faster",
-               "walk.left.slow",
+//               "walk.left.slow",
                "walk.right.faster",
                "walk.right.slow",
                "crawl.left",

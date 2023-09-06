@@ -16,7 +16,7 @@ class VPetWorkHandler{
     var currentActionTitle:String? = nil
     
     func play(_ title:String,interrupt:Bool = true){
-        VPET.autoActionHendler.instantlyendAutoAction();
+        VPET.autoActionHendler.instantlyquit();
         var isinterrupt = interrupt
         if currentActionTitle != nil {
             if(currentActionTitle != title){
@@ -55,7 +55,7 @@ class VPetWorkHandler{
     func endplayFromCurrentActionTitle(){
         guard currentActionTitle != nil else{return;}
         //立刻丢掉自动动画
-        VPET.autoActionHendler.instantlyendAutoAction();
+        VPET.autoActionHendler.instantlyquit();
         guard let k = hardCodedText.actionToKeyword[self.currentActionTitle!] else{return;}
         let searchkey = k + "/"
         

@@ -130,7 +130,7 @@ class VPet{
     func handleLeftMouseUp(_ p:NSPoint? = nil){
         
         if(self.autoActionHendler.autoActionStarted){
-            self.autoActionHendler.endAutoAction()
+            self.autoActionHendler.onUserInterrupted()
             return;
         }
         //当前在睡觉？那么叫醒！

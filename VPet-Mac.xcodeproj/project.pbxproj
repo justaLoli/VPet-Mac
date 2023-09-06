@@ -15,6 +15,7 @@
 		8F0042D82A9B89C50054CE7C /* new2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0042D72A9B89C50054CE7C /* new2UITests.swift */; };
 		8F0042DA2A9B89C50054CE7C /* new2UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0042D92A9B89C50054CE7C /* new2UITestsLaunchTests.swift */; };
 		8F35E8682A9F647C001F859C /* AnimePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F35E8672A9F647C001F859C /* AnimePlayer.swift */; };
+		8F3DA5E02AA8B5C3009463F2 /* VPet-autoaction-move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3DA5DF2AA8B5C3009463F2 /* VPet-autoaction-move.swift */; };
 		8F428B0D2AA341D000EB5CE4 /* ChooseActionMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F428B0C2AA341D000EB5CE4 /* ChooseActionMenu.swift */; };
 		8F524ACD2AA0C36200E138C7 /* StatusBarItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F524ACC2AA0C36100E138C7 /* StatusBarItemController.swift */; };
 		8F52524F2AA33DB500E541A5 /* HardCodedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52524E2AA33DB500E541A5 /* HardCodedText.swift */; };
@@ -57,6 +58,7 @@
 		8F0042D72A9B89C50054CE7C /* new2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = new2UITests.swift; sourceTree = "<group>"; };
 		8F0042D92A9B89C50054CE7C /* new2UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = new2UITestsLaunchTests.swift; sourceTree = "<group>"; };
 		8F35E8672A9F647C001F859C /* AnimePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimePlayer.swift; sourceTree = "<group>"; };
+		8F3DA5DF2AA8B5C3009463F2 /* VPet-autoaction-move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VPet-autoaction-move.swift"; sourceTree = "<group>"; };
 		8F428B0C2AA341D000EB5CE4 /* ChooseActionMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseActionMenu.swift; sourceTree = "<group>"; };
 		8F524ACC2AA0C36100E138C7 /* StatusBarItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarItemController.swift; sourceTree = "<group>"; };
 		8F52524E2AA33DB500E541A5 /* HardCodedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardCodedText.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				8FDCD26F2AA4C59100E2AC04 /* VPet-raise.swift */,
 				8FDCD2712AA5A68B00E2AC04 /* VPet-work.swift */,
 				8FDCD2732AA5A7A800E2AC04 /* VPet-autoaction.swift */,
+				8F3DA5DF2AA8B5C3009463F2 /* VPet-autoaction-move.swift */,
 			);
 			path = "VPet-Mac";
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F3DA5E02AA8B5C3009463F2 /* VPet-autoaction-move.swift in Sources */,
 				8F35E8682A9F647C001F859C /* AnimePlayer.swift in Sources */,
 				8F0042BE2A9B89C30054CE7C /* ViewController.swift in Sources */,
 				8F6F82802A9E376E00664375 /* WindowController.swift in Sources */,

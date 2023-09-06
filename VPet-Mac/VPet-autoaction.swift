@@ -9,8 +9,10 @@ import Cocoa
 
 class VPetAutoActionHandler{
     let VPET:VPet!
+    var movehandler:VPetAutoMoveHandler?
     init(_ VPET:VPet) {
         self.VPET = VPET
+        movehandler = VPetAutoMoveHandler(VPET)
     }
     var autoActionStarted = false;
     // 自动触发项目的长期包括：
@@ -46,6 +48,11 @@ class VPetAutoActionHandler{
             chooseGraphType = autoActions.randomElement()!.key
         }while(chooseGraphType == .StateTWO) //第一抽不要抽到statetwo
 
+        if(chooseGraphType == .Move){
+            //自动移动
+        }
+        
+        
         chooseAnimeTitle = autoActions[chooseGraphType!]!.randomElement()!
         
         playAutoAction()

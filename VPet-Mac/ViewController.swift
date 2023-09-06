@@ -82,6 +82,8 @@ class ViewController: NSViewController {
                 guard let VPET = windowController.VPET else{
                     return event
                 }
+//                print(VPET.autoActionHendler.movehandler?.getVPetCenterPos())
+//                print(VPET.autoActionHendler.movehandler?.getDisplayBorderInformation())
                 VPET.handleLeftMouseDragged(event.locationInWindow)
                 break;
             case .leftMouseUp:

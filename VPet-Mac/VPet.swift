@@ -36,6 +36,9 @@ class VPet{
         self.raiseHandler = VPetRaiseHandler(self)
         self.workAndSleepHandler = VPetWorkHandler(self)
         self.autoActionHendler = VPetAutoActionHandler(self)
+        
+        self.autoActionHendler.movehandler?.generateMoveList();
+        
     }
     
     func initVPetStatesRefreshTimer(){

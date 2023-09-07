@@ -45,7 +45,7 @@ class ViewController: NSViewController {
     func initButton(){
         for subv in self.view.subviews{
             if let button = subv as? NSButton{
-                if(button.title == "爬"){continue;}
+//                if(button.title == "爬"){continue;}
                 button.isHidden = true
             }
         }

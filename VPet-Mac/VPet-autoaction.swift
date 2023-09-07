@@ -34,7 +34,7 @@ class VPetAutoActionHandler{
     var chooseAnimeTitle:String!
     func isAutoAcitonAllowed() -> Bool{
         let t = VPET.VPetGraphTypeStack.last
-        if((t == .Sleep && VPET.workAndSleepHandler.currentActionTitle != nil) || t == .Shutdown || t == .Raised_Static || t == .Raised_Dynamic){
+        if((t == .Sleep && VPET.workAndSleepHandler.currentActionTitle != nil) || t == .Shutdown || t == .Raised_Static || t == .Raised_Dynamic || t == .Move){
             return false;
         }
         return true;
@@ -42,14 +42,18 @@ class VPetAutoActionHandler{
     func startAutoAction(){
         if(!isAutoAcitonAllowed()){print("current dont allow autoaction");return;}
         
+        if(autoActionStarted){return;}
+        
         print("start")
         
         repeat{
             chooseGraphType = autoActions.randomElement()!.key
         }while(chooseGraphType == .StateTWO) //第一抽不要抽到statetwo
-
         if(chooseGraphType == .Move){
             //自动移动
+            self.movehandler!.startAutoMove();
+            self.autoActionStarted = true;
+            return;
         }
         
         
@@ -117,6 +121,12 @@ class VPetAutoActionHandler{
             chooseGraphType = gt
         }
         
+        if(chooseGraphType == .Move){
+            self.movehandler?.startAutoMove();
+            self.autoActionStarted = true;
+            return;
+        }
+        
         chooseAnimeTitle = autoActions[chooseGraphType!]!.randomElement()!
         print(chooseGraphType.rawValue)
         print(chooseAnimeTitle!)
@@ -127,6 +137,9 @@ class VPetAutoActionHandler{
     func instantlyquit(){
         guard autoActionStarted else{return}
         autoActionStarted = false;
+        if(movehandler!.moveStarted){
+            movehandler!.stopWindowMove();
+        }
         VPET.animeplayer.interruptAndSetPlayList([]);
         //更新主类动作栈
         if !(autoActions.keys.contains(VPET.VPetGraphTypeStack.last!)){
@@ -172,8 +185,11 @@ class VPetAutoActionHandler{
     }
     
     func onUserInterrupted(){
-        guard autoActionStarted else{return}
         autoActionStarted = false;
+        if(movehandler!.moveStarted){
+            self.movehandler!.stopAutoMove();
+            return;
+        }
         playEndAutoAction()
         if(chooseGraphType == .StateTWO){
             chooseGraphType = .StateONE

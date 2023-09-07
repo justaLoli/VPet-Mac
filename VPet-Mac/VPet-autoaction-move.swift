@@ -36,6 +36,9 @@ func *(lhs: CGFloat, rhs: Vector) -> Vector {
 
 class VPetAutoMoveHandler{
     let VPET:VPet!
+    
+    var moveStarted = false;
+    
     init(_ VPET:VPet) {
         self.VPET = VPET
     }
@@ -48,6 +51,12 @@ class VPetAutoMoveHandler{
         let frameplace = VPET.displayWindow.window!.frame.origin;
         let middlePos = Vector(x: frameplace.x + middlexy, y: frameplace.y + middlexy)
         return middlePos
+    }
+    func getVPetCenterPosInWindow() -> Vector{
+        // 得到当前宠物中心点坐标（相对窗口左下角）
+        let framesize = VPET.displayWindow.window!.frame.width;
+        let middlexy = framesize/2
+        return Vector(x: middlexy, y: middlexy)
     }
     
     func getDisplayBorderInformation() -> Vector{
@@ -94,7 +103,7 @@ class VPetAutoMoveHandler{
         
         let DisplayRect = getDisplayBorderInformation();
         let toleft = pos.x;
-        let todown = pos.y;
+        let todown = pos.y - 100;
         let toup = DisplayRect.y - todown;
         let toright = DisplayRect.x - toleft;
         return dist(toleft: toleft, toright: toright, toup: toup, todown: todown);
@@ -124,6 +133,18 @@ class VPetAutoMoveHandler{
         .MoveTopLeft: Vector(x: -1, y: 0),
         .MoveTopRight: Vector(x: 1, y: 0),
     ]
+    let directionKeyword:[MoveDirections:[String]] = [
+        .WalkLeft: ["walk.left","crawl.left","walk.left.faster"],
+        .WalkRight: ["walk.right","crawl.right","walk.right.faster"],
+        .FallLeft: ["fall.left"],
+        .FallRight: ["fall.right"],
+        .ClimbLeftUp: ["climb.left"],
+        .ClimbRightUp: ["climb.right"],
+        .ClimbLeftDown: ["climb.left"],
+        .ClimbRightDown: ["climb.right"],
+        .MoveTopLeft: ["climb.top.left"],
+        .MoveTopRight: ["climb.top.right"],
+    ]
     func getAvailableDirectionList(_ petpos: Vector?) -> [MoveDirections:CGFloat]{
         //返回值：方向：允许的最大长度
         //像爬这样的，就只有某些时候（贴近边框）能触发
@@ -132,15 +153,16 @@ class VPetAutoMoveHandler{
         let mindist = getDisplayBorderInformation().x / 10 //随便算的
         
         var res = [MoveDirections:CGFloat]()
-        if(borderDist.toleft > mindist && borderDist.toup > mindist && borderDist.toright > mindist){
+        if(borderDist.toleft > mindist && borderDist.toup > mindist){
             res[.WalkLeft] = borderDist.toleft
+        }
+        if(borderDist.toright > mindist && borderDist.toup > mindist){
             res[.WalkRight] = borderDist.toright
         }
-        
-        if(borderDist.toleft > mindist && borderDist.todown > getDisplayBorderInformation().y/3){
+        if(borderDist.toleft > mindist && borderDist.todown > getDisplayBorderInformation().y/4){
             res[.FallLeft] = min(borderDist.toleft, borderDist.todown)
         }
-        if(borderDist.toright > mindist && borderDist.todown > getDisplayBorderInformation().y/3){
+        if(borderDist.toright > mindist && borderDist.todown > getDisplayBorderInformation().y/4){
             res[.FallRight] = min(borderDist.toright,borderDist.todown);
         }
         if(borderDist.toleft < mindist){
@@ -177,16 +199,52 @@ class VPetAutoMoveHandler{
         return CGFloat(random)
     }
     
+    func startAutoMove(){
+        if(moveStarted){return;}
+        moveStarted = true;
+        generateMove();
+    }
+    func stopWindowMove(){
+        moveStarted = false;
+        //终止当前可能存在的动画的方法
+        NSAnimationContext.runAnimationGroup({ (context) in
+            context.duration = 0.0
+            context.timingFunction = CAMediaTimingFunction.init(name: .linear)
+            let window = self.VPET.displayWindow.window!
+            let rect = window.frame
+            window.animator().setFrame(rect, display: true, animate: true)
+        } )
+    }
+    func stopAutoMove(){
+        //被用户交互阻止。
+        if(!moveStarted){return;}
+        //TODO
+        stopWindowMove();
+        moveStarted = false;
+        let pl = self.VPET.generatePlayListC(graphtype: .Move, modetype: self.VPET.VPetStatus, title: self.playingKeyword!)
+        self.VPET.animeplayer.interruptAndSetPlayList(pl);
+        print(self.VPET.VPetGraphTypeStack)
+        if(self.VPET.VPetGraphTypeStack.last != .Move){
+            print("automove stopAutoMove: strange... stack top is not .Move")
+        }
+        self.VPET.VPetGraphTypeStack.removeLast();
+        self.VPET.updateAnimation();
+    }
+    
     func generateMove(){
-        return animateWindow();
+        if(!moveStarted){return;}
+//        return animateWindow();
         let petCenterPos = getVPetCenterPos();
         let availableDirList = getAvailableDirectionList(petCenterPos);
+        if(availableDirList.isEmpty){
+            print("this really happened..")
+        }
         //抽取一个方向
         let chooseDirection = availableDirList.keys.randomElement()!
         
         //抽取一个距离
         let mindist = getDisplayBorderInformation().x / 10 //得多少走点，别在那倒
-        let chooseDistance = randomInRange(mindist,availableDirList[chooseDirection]!)
+        let chooseDistance = min(randomInRange(mindist,availableDirList[chooseDirection]! + mindist),availableDirList[chooseDirection]!)
         //对于爬行，把起始点规定在贴边的位置。正常情况起始点就是宠物所在点
         var startPos = petCenterPos;
         if(chooseDirection == .ClimbLeftUp || chooseDirection == .ClimbLeftDown){
@@ -198,80 +256,76 @@ class VPetAutoMoveHandler{
         else if(chooseDirection == .MoveTopLeft || chooseDirection == .MoveTopRight){
             startPos.y = upClimbCenterY();
         }
-        //终点
-        var endPos = startPos + chooseDistance * directionVector[chooseDirection]!;
-        print("startpos: \(startPos)")
+        
+        
+        //主要数据： （瞬移到）起始点；（过渡到）终止点；需要的时间。
+        let endPos = startPos + chooseDistance * directionVector[chooseDirection]!
+        let speed:CGFloat = 10.0;
+        let framecount = chooseDistance / speed;
+        //按照一秒8帧算
+        let duration:CGFloat = framecount / 8
         print("direction: \(chooseDirection)")
-        print("distance(by axis): \(chooseDistance)")
+        print("startpos: \(startPos)")
         print("endpos: \(endPos)")
+        print("duration: \(duration)")
         
-        //真的动一下！
-        let framesize = VPET.displayWindow.window!.frame.width;
-        let middlexy = framesize/2
-//        moveWindowPos(startPos: startPos, endPos: endPos)
-        moveWindow(startPos: startPos, direction: directionVector[chooseDirection]!, distance: chooseDistance, speed: 14)
-        
+        animateWindow(startPos: startPos, endPos: endPos, duration: duration,direction: chooseDirection)
     }
     
-    var framecost:Int? = nil
-    var framecount = 0;
-    var timer:Timer? = nil
-    var direction:Vector? = nil
-    var speed:Int? = nil
-    func moveWindow(startPos:Vector,direction:Vector,distance:CGFloat,speed:Int){
-        //中心点startpos，按照direction的方向，移动distance，速度speed
-        //先把窗口弄到startpos（对于爬墙，startpos不一定是当前的pos）
-        let premove = startPos + (-1) * getVPetCenterPos();
-        let t = VPET.displayWindow.window?.convertPoint(toScreen: NSPoint(x: premove.x , y: premove.y))
-        VPET.displayWindow.window?.setFrameOrigin(t!)
-        //需要移动多少帧
-        framecost = Int(distance/CGFloat(speed))
-        self.direction = direction;
-        self.speed = speed;
-        timer = Timer(timeInterval: 0.125, target: self, selector:#selector(moveWindowFrame), userInfo: nil, repeats: true )
-        RunLoop.main.add(timer!,forMode: .common)
+    var playingKeyword:String? = nil;
+    func animateWindow(startPos:Vector,endPos:Vector,duration:CGFloat,direction:MoveDirections) {
+        if(!moveStarted){return;}
+        //动画播放
+        playingKeyword = directionKeyword[direction]!.randomElement()!
+        let pl = VPET.generatePlayListAB(graphtype: .Move, modetype: VPET.VPetStatus, title: playingKeyword!)
         
-    }
-    @objc func moveWindowFrame(){
-        guard framecost != nil else{return;}; guard timer != nil else{return;};
-        guard direction != nil else{return;}; guard speed != nil else{return;};
-        let move = CGFloat(speed!) * direction!;
-        let t2 = VPET.displayWindow.window?.convertPoint(toScreen: NSPoint(x: move.x, y: move.y))
-        VPET.displayWindow.window?.setFrameOrigin(t2!)
-        framecount += 1;
-        if(framecount == framecost){
-            timer?.invalidate();
-            timer = nil;
-            framecount = 0;
-        }
+        VPET.animeplayer.interruptAndSetPlayList(pl);
+        VPET.animeplayer.setPlayMode(.Shuffle);
+        VPET.animeplayer.removeCurrentAnimeAfterFinish = true;
+        VPET.VPetGraphTypeStack.append(.Move)
         
-    }
-//    func moveWindowPos(startPos: Vector,endPos: Vector){
-//        //先把窗口弄到startpos（对于爬墙，startpos不一定是当前的pos）
-//        let premove = startPos + (-1) * getVPetCenterPos();
-//        let t = VPET.displayWindow.window?.convertPoint(toScreen: NSPoint(x: premove.x , y: premove.y))
-//        VPET.displayWindow.window?.setFrameOrigin(t!)
-//        //controlPos和targetPos都是相对窗口的坐标
-//        let movement = endPos + (-1)*startPos;
-//        let t2 = VPET.displayWindow.window?.convertPoint(toScreen: NSPoint(x: movement.x, y: movement.y))
-//        VPET.displayWindow.window?.setFrameOrigin(t2!)
-//    }
-    
-    func animateWindow() {
-        var currentPosition: NSPoint = NSPoint(x: 100, y: 100) // 初始位置
-        VPET.displayWindow.window?.setFrameOrigin(currentPosition)
-        var targetPosition: NSPoint = NSPoint(x: 300, y: 300) // 目标位置
-        let duration: TimeInterval = 2.0 // 移动持续时间（秒）
         
-        NSAnimationContext.runAnimationGroup({ (context) in
-            context.duration = duration
-            context.timingFunction = CAMediaTimingFunction.init(name: .linear)
-            let window = VPET.displayWindow.window!
-            var rect = window.frame;rect.origin = targetPosition;
-            window.animator().setFrame(rect, display: true, animate: true)
-        },completionHandler: {
-            print("回调")
+        
+        //由于低劣的异步，窗口移动等待一段随机时间再触发（这个更多是为了连续多个动画播放的时候，中间要停顿一点时间。）
+        _ = Timer.scheduledTimer(withTimeInterval: Double.random(in: 0.5...1.0), repeats: false, block: { _ in
+            print("?")
+            
+            let window = self.VPET.displayWindow.window!
+            let originStartPos = startPos + (-1)*self.getVPetCenterPosInWindow();//初始位置
+            window.setFrameOrigin(NSPoint(x: originStartPos.x, y: originStartPos.y))
+            let originEndPos = endPos + (-1)*self.getVPetCenterPosInWindow();
+            let duration: TimeInterval = duration // 移动持续时间（秒）
+            NSAnimationContext.runAnimationGroup({ (context) in
+                context.duration = duration
+                context.timingFunction = CAMediaTimingFunction.init(name: .linear)
+                let window = self.VPET.displayWindow.window!
+                var rect = window.frame;rect.origin = NSPoint(x: originEndPos.x, y: originEndPos.y);
+                window.animator().setFrame(rect, display: true, animate: true)
+            },completionHandler: {
+                if(!self.moveStarted){return;}
+                print("回调")//手动停止也会激活回调！不过现在就不需要它响应了
+                let pl = self.VPET.generatePlayListC(graphtype: .Move, modetype: self.VPET.VPetStatus, title: self.playingKeyword!)
+                self.VPET.animeplayer.interruptAndSetPlayList(pl);
+                if(self.VPET.VPetGraphTypeStack.last != .Move){
+                    print("move animateWindow: strange.. stack top is not .move")
+                }
+                self.VPET.VPetGraphTypeStack.removeLast();
+                
+                //多么优秀的抽签方式
+                let iscontinue = [true,true,true,false,false].randomElement()!
+//                let iscontinue = true;
+                if(iscontinue){
+                    self.generateMove()
+                }
+                else{
+                    self.moveStarted = false;
+                    self.VPET.updateAnimation()
+                }
+                
+            })
+            
         })
+        
         
     }
     

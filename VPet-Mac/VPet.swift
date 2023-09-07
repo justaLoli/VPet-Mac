@@ -69,6 +69,8 @@ class VPet{
     }
     
     func updateAnimation(){
+        print("updateAnimation")
+        print(VPetGraphTypeStack)
         switch VPetGraphTypeStack.last!{
         case .Default:
             updateDefaultAnime();break;

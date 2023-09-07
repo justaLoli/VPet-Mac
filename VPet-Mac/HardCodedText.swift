@@ -56,7 +56,7 @@ class HardCodedText{
     
     
     var JiSuanJianGe = 15.0
-    var HuDongZhouQi = 30.0
+    var HuDongZhouQi = 10.0
     
     
     var autoActions:[GraphInfo.GraphType:[String]] = [

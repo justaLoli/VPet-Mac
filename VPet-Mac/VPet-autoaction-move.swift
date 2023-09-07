@@ -319,6 +319,7 @@ class VPetAutoMoveHandler{
                 }
                 else{
                     self.moveStarted = false;
+                    self.VPET.autoActionHendler.autoActionStarted = false;
                     self.VPET.updateAnimation()
                 }
                 

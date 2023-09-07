@@ -201,13 +201,13 @@ class AnimePlayer{
     }
     
     @objc private func playerFrameHandler(_ timer: Timer?) -> Void {
-        if(frameCount == 0){
-            for i in playList{
-                print(i.generateName())
-            }
-            print(playIndex)
-            print("")
-        }
+//        if(frameCount == 0){
+//            for i in playList{
+//                print(i.generateName())
+//            }
+//            print(playIndex)
+//            print("")
+//        }
         //确保播放列表非空
 //        guard let currentPlayAnimeInfo = playList.first else{stopAndReset();return}
         if !(playIndex < playList.count && playIndex >= 0){stopAndReset();return;}

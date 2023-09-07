@@ -37,7 +37,6 @@ class VPet{
         self.workAndSleepHandler = VPetWorkHandler(self)
         self.autoActionHendler = VPetAutoActionHandler(self)
         
-        self.autoActionHendler.movehandler?.generateMoveList();
         
     }
     

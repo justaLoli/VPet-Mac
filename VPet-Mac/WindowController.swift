@@ -42,7 +42,7 @@ class WindowController: NSWindowController,NSWindowDelegate {
         window?.delegate = self
         
         window?.title = ""
-//        window?.level = .floating
+        window?.level = .floating
         window?.level = .screenSaver // 这个是让窗口置顶
         window?.collectionBehavior = [.canJoinAllSpaces, .transient]
         
@@ -66,6 +66,7 @@ class WindowController: NSWindowController,NSWindowDelegate {
        
     
     func setWindowPos(controlPos: NSPoint,targetPos: NSPoint){
+        //controlPos和targetPos都是相对窗口的坐标
         var x = controlPos.x * 2
         var y = controlPos.y * 2
         var pictureResolution = CGFloat(1000)
@@ -80,7 +81,6 @@ class WindowController: NSWindowController,NSWindowDelegate {
         
         let t = window?.convertPoint(toScreen: NSPoint(x: dx, y: dy))
         window?.setFrameOrigin(t!)
-        
     }
     
     

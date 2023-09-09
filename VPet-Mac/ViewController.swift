@@ -45,7 +45,7 @@ class ViewController: NSViewController {
     func initButton(){
         for subv in self.view.subviews{
             if let button = subv as? NSButton{
-//                if(button.title == "爬"){continue;}
+//                if(button.title == "一键爬行"){continue;}
                 button.isHidden = true
             }
         }
@@ -113,15 +113,16 @@ class ViewController: NSViewController {
             VPET.workAndSleepHandler.endplayFromCurrentActionTitle();
             VPET.updateAnimation();
         }
-        if(sender.title == "爬"){
+        if(sender.title == "一键爬行"){
             guard let windowController = self.view.window?.windowController as? WindowController else{
                 return;
             }
             guard let VPET = windowController.VPET else{
                 return;
             }
-            VPET.autoActionHendler.movehandler!.generateMove()
+            VPET.autoActionHendler.movehandler!.startAutoMove()
         }
+        
     }
     
     

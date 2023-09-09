@@ -202,10 +202,12 @@ class VPetAutoMoveHandler{
     func startAutoMove(){
         if(moveStarted){return;}
         moveStarted = true;
+        self.VPET.autoActionHendler.autoActionStarted = true;
         generateMove();
     }
     func stopWindowMove(){
         moveStarted = false;
+        self.VPET.autoActionHendler.autoActionStarted = false;
         //终止当前可能存在的动画的方法
         NSAnimationContext.runAnimationGroup({ (context) in
             context.duration = 0.0
@@ -217,8 +219,6 @@ class VPetAutoMoveHandler{
     }
     func stopAutoMove(){
         //被用户交互阻止。
-        if(!moveStarted){return;}
-        //TODO
         stopWindowMove();
         moveStarted = false;
         let pl = self.VPET.generatePlayListC(graphtype: .Move, modetype: self.VPET.VPetStatus, title: self.playingKeyword!)
@@ -276,7 +276,21 @@ class VPetAutoMoveHandler{
     func animateWindow(startPos:Vector,endPos:Vector,duration:CGFloat,direction:MoveDirections) {
         if(!moveStarted){return;}
         //动画播放
-        playingKeyword = directionKeyword[direction]!.randomElement()!
+        if direction == .WalkLeft{
+            switch VPET.VPetStatus{
+            case .Happy:playingKeyword = "walk.left.faster";break;
+            default:playingKeyword = "walk.left"
+            }
+        }
+        else if direction == .WalkRight{
+            switch VPET.VPetStatus{
+            case .Happy:playingKeyword = "walk.right.faster";break;
+            default:playingKeyword = "walk.right"
+            }
+        }
+        else{
+            playingKeyword = directionKeyword[direction]!.randomElement()!
+        }
         let pl = VPET.generatePlayListAB(graphtype: .Move, modetype: VPET.VPetStatus, title: playingKeyword!)
         
         VPET.animeplayer.interruptAndSetPlayList(pl);
@@ -311,9 +325,10 @@ class VPetAutoMoveHandler{
                 }
                 self.VPET.VPetGraphTypeStack.removeLast();
                 
+                //是否接着移动
                 //多么优秀的抽签方式
-                let iscontinue = [true,true,true,false,false].randomElement()!
-//                let iscontinue = true;
+//                let iscontinue = [true,true,true,false,false].randomElement()!
+                let iscontinue = true;
                 if(iscontinue){
                     self.generateMove()
                 }

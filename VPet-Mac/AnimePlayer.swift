@@ -85,7 +85,7 @@ class AnimePlayer{
     
     // 计时器数字Label
     var timerLabel: NSTextField!
-    var workStartTime: Date?
+    var workTimerPassedSeconds:Int = 0;
     var workTimer: Timer?
     
     
@@ -451,28 +451,30 @@ class AnimePlayer{
     
     // 启动计时器
     func startWorkTimer() {
-        workStartTime = Date()
         timerLabel.isHidden = false
         updateWorkTimerLabel()
         workTimer?.invalidate()
         workTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             self?.updateWorkTimerLabel()
         }
+        // 防止用户在按下按钮不松开的时候计时器卡住，需要把计时器设置为.common模式
+        RunLoop.current.add(workTimer!, forMode: .common)
     }
     // 停止计时器
     func stopWorkTimer() {
         workTimer?.invalidate()
         workTimer = nil
         timerLabel.isHidden = true
+        workTimerPassedSeconds = 0
         timerLabel.stringValue = "00:00:00"
     }
     // 更新时间显示
     func updateWorkTimerLabel() {
-        guard let start = workStartTime else { timerLabel.stringValue = "00:00:00"; return }
-        let interval = Int(Date().timeIntervalSince(start))
-        let hours = interval / 3600
-        let minutes = (interval % 3600) / 60
-        let seconds = interval % 60
+        workTimerPassedSeconds += 1;
+        var interval = workTimerPassedSeconds
+        let hours = interval / 3600; interval %= 3600;
+        let minutes = interval / 60; interval %= 60;
+        let seconds = interval;
         timerLabel.stringValue = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
     }
 }

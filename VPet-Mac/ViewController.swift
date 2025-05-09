@@ -37,10 +37,6 @@ class ViewController: NSViewController {
         return label
     }()
     
-    // 计时器相关变量
-    var workStartTime: Date?
-    var workTimer: Timer?
-    
     override func viewDidLoad() {
         print("viewdidload")
         super.viewDidLoad()
@@ -94,6 +90,7 @@ class ViewController: NSViewController {
                     return event
                 }
                 VPET.handleLeftMouseDown(event.locationInWindow)
+                break;
             case .rightMouseUp:
                 break;
             case .leftMouseDragged:
@@ -180,33 +177,6 @@ class ViewController: NSViewController {
         didSet {
         // Update the view, if already loaded.
         }
-    }
-
-    // 启动计时器
-    func startWorkTimer() {
-        workStartTime = Date()
-        timerLabel.isHidden = false
-        updateWorkTimerLabel()
-        workTimer?.invalidate()
-        workTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
-            self?.updateWorkTimerLabel()
-        }
-    }
-    // 停止计时器
-    func stopWorkTimer() {
-        workTimer?.invalidate()
-        workTimer = nil
-        timerLabel.isHidden = true
-        timerLabel.stringValue = "00:00:00"
-    }
-    // 更新时间显示
-    func updateWorkTimerLabel() {
-        guard let start = workStartTime else { timerLabel.stringValue = "00:00:00"; return }
-        let interval = Int(Date().timeIntervalSince(start))
-        let hours = interval / 3600
-        let minutes = (interval % 3600) / 60
-        let seconds = interval % 60
-        timerLabel.stringValue = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
     }
 
     override func mouseMoved(with event: NSEvent) {

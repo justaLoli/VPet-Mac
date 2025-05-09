@@ -20,7 +20,7 @@ class VPetAutoActionHandler{
     // MOVE移动，关键词太多了
     // Music随音乐舞动，关键词Music
     // Sleep睡觉，这个睡觉和手动触发的睡觉略不同，可以在工作中途触发且不覆盖工作。
-    // State待机，关键词StateONE & StateTWO
+    // State待机，关键词StateOne & StateTwo
     
     // 自动触发短期项目
     // 表达饥饿、口渴；状态变好，变差；
@@ -48,7 +48,7 @@ class VPetAutoActionHandler{
         
         repeat{
             chooseGraphType = autoActions.randomElement()!.key
-        }while(chooseGraphType == .StateTWO) //第一抽不要抽到statetwo
+        }while(chooseGraphType == .StateTwo) //第一抽不要抽到statetwo
         if(chooseGraphType == .Move){
             //自动移动
             self.movehandler!.startAutoMove();
@@ -93,7 +93,7 @@ class VPetAutoActionHandler{
             })
             return;
         case "quit":
-            if(chooseGraphType == .StateTWO){break;} //stateTWO不允许退出
+            if(chooseGraphType == .StateTwo){break;} //stateTwo不允许退出
             playEndAutoAction();
             VPET.updateAnimation();
             return;
@@ -103,17 +103,17 @@ class VPetAutoActionHandler{
         //决定换一个动作了！
         
         
-        if(chooseGraphType == .StateTWO){
+        if(chooseGraphType == .StateTwo){
             fromStateTwotoStateOne();
             return;
-        } // 原来statetwo，只降到stateone
+        } // 原来stateTwo，只降到stateOne
         else{
             var gt:GraphInfo.GraphType?
             repeat{
                 gt = autoActions.randomElement()!.key
             }while(gt == chooseGraphType   //不要抽到和原来相同的
-                   || (chooseGraphType != .StateONE && gt == .StateTWO)) //statetwo只有上一个是stateone才能抽
-            if(chooseGraphType == .StateONE && gt == .StateTWO){
+                   || (chooseGraphType != .StateOne && gt == .StateTwo)) //stateTwo只有上一个是stateOne才能抽
+            if(chooseGraphType == .StateOne && gt == .StateTwo){
                 fromStateOnetoStateTwo();
                 return;
             }
@@ -135,51 +135,37 @@ class VPetAutoActionHandler{
     }
     
     func instantlyquit(){
-        guard autoActionStarted else{return}
-        autoActionStarted = false;
+        if(!autoActionStarted){return}
         if(movehandler!.moveStarted){
-            movehandler!.stopWindowMove();
+            self.movehandler!.stopAutoMove();
+            return;
         }
-        VPET.animeplayer.interruptAndSetPlayList([]);
-        //更新主类动作栈
-        if !(autoActions.keys.contains(VPET.VPetGraphTypeStack.last!)){
-            print("instantlyendAutoAction: strange. stack top is not an autoaction")
-        }
-        VPET.VPetGraphTypeStack.removeLast();
+        playEndAutoAction()
+        VPET.updateAnimation()
     }
     
     func playEndAutoAction(){
-        let pl = VPET.generatePlayListC(graphtype: chooseGraphType, modetype: VPET.VPetStatus, title: chooseAnimeTitle);
-        VPET.animeplayer.interruptAndSetPlayList(pl);
-        VPET.animeplayer.setPlayMode(.Shuffle);
-        autoActionStarted = false;
-        //更新主类动作栈
-        if !(autoActions.keys.contains(VPET.VPetGraphTypeStack.last!)){
-            print("endAutoAction: strange. stack top is not an autoaction")
+        let pl = VPET.generatePlayListC(graphtype:chooseGraphType,modetype: VPET.VPetStatus,title: chooseAnimeTitle);
+        if(!pl.isEmpty){
+            VPET.animeplayer.interruptAndSetPlayList(pl)
+            VPET.animeplayer.removeCurrentAnimeAfterFinish = true;
         }
-        VPET.VPetGraphTypeStack.removeLast();
+        VPET.VPetGraphTypeStack.removeLast()
+        autoActionStarted = false;
     }
     
     func fromStateTwotoStateOne(){
-        playEndAutoAction()
-        chooseGraphType = .StateONE
+        //不播放1的结束，直接插入2的开始
+        
+        chooseGraphType = .StateOne
         chooseAnimeTitle = autoActions[chooseGraphType!]!.randomElement()!
-        //自动状态还不停，从stateTWO变为stateONE,直接进入循环
-        let pl = VPET.generatePlayListB(graphtype:chooseGraphType,modetype: VPET.VPetStatus,title: chooseAnimeTitle);
-//        更新主类动作栈
-//        VPET.VPetGraphTypeStack.append(chooseGraphType);
-        VPET.animeplayer.setPlayList(pl);
-        VPET.animeplayer.setPlayMode(.Shuffle)
-        autoActionStarted = true;
-        let timer = Timer.scheduledTimer(withTimeInterval: 10, repeats: false, block: { _ in
-            self.switchToNextAutoAction()
-        })
-        return
+        playAutoAction()
     }
+    
     func fromStateOnetoStateTwo(){
         //不播放1的结束，直接插入2的开始
         
-        chooseGraphType = .StateTWO
+        chooseGraphType = .StateTwo
         chooseAnimeTitle = autoActions[chooseGraphType!]!.randomElement()!
         playAutoAction()
     }
@@ -191,10 +177,10 @@ class VPetAutoActionHandler{
             return;
         }
         playEndAutoAction()
-        if(chooseGraphType == .StateTWO){
-            chooseGraphType = .StateONE
+        if(chooseGraphType == .StateTwo){
+            chooseGraphType = .StateOne
             chooseAnimeTitle = autoActions[chooseGraphType!]!.randomElement()!
-            //自动状态还不停，从stateTWO变为stateONE
+            //自动状态还不停，从stateTwo变为stateOne
             let pl = VPET.generatePlayListB(graphtype:chooseGraphType,modetype: VPET.VPetStatus,title: chooseAnimeTitle);
             //更新主类动作栈
             VPET.VPetGraphTypeStack.append(chooseGraphType);

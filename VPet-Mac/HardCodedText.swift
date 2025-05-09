@@ -61,7 +61,7 @@ class HardCodedText{
     
     var autoActions:[GraphInfo.GraphType:[String]] = [
         .Sleep:["Sleep"],
-        .Idel:["Boring","Squat"],
+        .Boring:["Boring","Squat"],
         .Move:["climb.left",
                "climb.left",
                "climb.right",
@@ -78,8 +78,9 @@ class HardCodedText{
                "walk.right.slow",
                "crawl.left",
                "crawl.right"],
-        .StateONE:["StateONE"],
-        .StateTWO:["StateTWO"],]
+        .StateOne:["StateOne"],
+        .StateTwo:["StateTwo"]
+    ]
     
 }
 

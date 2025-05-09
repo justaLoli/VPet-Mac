@@ -29,7 +29,7 @@ class WindowController: NSWindowController,NSWindowDelegate {
         window?.setContentSize(NSSize(width: 300, height: 300))
         
         // 初始化 AnimePlayer
-        let player = AnimePlayer(viewcontroller.imagev, nil)
+        let player = AnimePlayer(imageView: viewcontroller.imagev, vPet: nil, timerLabel: viewcontroller.timerLabel)
         viewcontroller.setAnimePlayer(player)
         
         // 初始化VPET

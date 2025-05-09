@@ -84,80 +84,10 @@ class AnimePlayer{
     var studySecondsElapsed: Int = 0
     
     // 计时器数字Label
-    var timerLabel: NSTextField = {
-        let label = NSTextField(labelWithString: "00:00:00")
-        label.font = NSFont.monospacedDigitSystemFont(ofSize: 32, weight: .bold)
-        label.textColor = .white
-        label.isBezeled = false
-        label.drawsBackground = false
-        label.isEditable = false
-        label.isSelectable = false
-        label.alignment = .center
-        label.isHidden = true
-        label.backgroundColor = .clear
-        return label
-    }()
+    var timerLabel: NSTextField!
     var workStartTime: Date?
     var workTimer: Timer?
     
-    // 学习计时器面板UI
-    class StudyPanelView: NSView {
-        let titleLabel = NSTextField(labelWithString: "当前正在学习")
-        let timerLabel = NSTextField(labelWithString: "00:00:00")
-        let stopButton = NSButton(title: "停止学习", target: nil, action: nil)
-        var stopAction: (() -> Void)?
-        
-        override init(frame: NSRect) {
-            super.init(frame: frame)
-            wantsLayer = true
-            layer?.backgroundColor = NSColor(white: 0, alpha: 0.7).cgColor
-            layer?.cornerRadius = 16
-            // 标题
-            titleLabel.font = NSFont.boldSystemFont(ofSize: 20)
-            titleLabel.textColor = .white
-            titleLabel.alignment = .center
-            // 计时器
-            timerLabel.font = NSFont.monospacedDigitSystemFont(ofSize: 36, weight: .bold)
-            timerLabel.textColor = .white
-            timerLabel.alignment = .center
-            // 按钮
-            stopButton.font = NSFont.boldSystemFont(ofSize: 18)
-            stopButton.bezelStyle = .rounded
-            stopButton.contentTintColor = .white
-            stopButton.wantsLayer = true
-            stopButton.layer?.backgroundColor = NSColor(white: 1, alpha: 0.15).cgColor
-            stopButton.layer?.cornerRadius = 8
-            stopButton.action = #selector(stopButtonPressed)
-            stopButton.target = self
-            // 布局
-            titleLabel.translatesAutoresizingMaskIntoConstraints = false
-            timerLabel.translatesAutoresizingMaskIntoConstraints = false
-            stopButton.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(titleLabel)
-            addSubview(timerLabel)
-            addSubview(stopButton)
-            NSLayoutConstraint.activate([
-                titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 18),
-                titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-                timerLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
-                timerLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-                stopButton.topAnchor.constraint(equalTo: timerLabel.bottomAnchor, constant: 18),
-                stopButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-                stopButton.widthAnchor.constraint(equalToConstant: 120),
-                stopButton.heightAnchor.constraint(equalToConstant: 36),
-                stopButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -18)
-            ])
-        }
-        required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-        @objc func stopButtonPressed() { stopAction?() }
-        func setTime(_ seconds: Int) {
-            let h = seconds / 3600, m = (seconds % 3600) / 60, s = seconds % 60
-            timerLabel.stringValue = String(format: "%02d:%02d:%02d", h, m, s)
-        }
-    }
-    var studyPanel: StudyPanelView?
-    var studyTimerSeconds: Int = 0
-    var studyPanelTimer: Timer?
     
     // 摸头动画循环计数
     var touchHeadLoopCount = 0
@@ -166,15 +96,15 @@ class AnimePlayer{
     // AC帧专属慢速因子
     let acFrameSlowFactor = 1// 可根据需要调整倍数
     
+    convenience init(imageView: NSImageView?, vPet: VPet?, timerLabel: NSTextField?){
+        // 直接传入viewcontroller中创建好的timerLabel。为了减少代码改动使用了这种convenience init写法。
+        self.init(imageView, vPet);
+        self.timerLabel = timerLabel!
+    }
+    
     init(_ ImageView: NSImageView?, _ VPET: VPet? = nil) {
         self.ImageView = ImageView
         self.VPET = VPET
-        //文件读取所有动画
-//
-//        guard let assetsURL = Bundle.main.resourceURL?.appendingPathComponent("0000_core/pet/vup") else{
-//            print("strange... cant get the assets file.")
-//            return;
-//        }
         
         // 从内置资源文件中读取动画
         let assetsURL = Bundle.main.resourceURL?.appendingPathComponent("0000_core/pet/vup");
@@ -183,20 +113,7 @@ class AnimePlayer{
         
         self.allAnimes = FileSniffer(assetsURL!.path).sniff()
         animeInfoList = AnimeInfoList(Array(allAnimes.keys))
-        // 自动启动学习计时器
-        startStudyTimer()
         
-        // 添加计时器Label到ImageView的superview
-        if let superview = ImageView?.superview {
-            timerLabel.translatesAutoresizingMaskIntoConstraints = false
-            superview.addSubview(timerLabel)
-            NSLayoutConstraint.activate([
-                timerLabel.centerXAnchor.constraint(equalTo: ImageView!.centerXAnchor),
-                timerLabel.topAnchor.constraint(equalTo: ImageView!.topAnchor, constant: 220), // 下移到面板数字区域
-                timerLabel.widthAnchor.constraint(equalToConstant: 220),
-                timerLabel.heightAnchor.constraint(equalToConstant: 60)
-            ])
-        }
     }
     
     func setImageView(_ ImageView:NSImageView){self.ImageView = ImageView}
@@ -532,30 +449,6 @@ class AnimePlayer{
         }
     }
     
-    func startStudyTimer() {
-        studyTimer?.invalidate()
-        studySecondsElapsed = 0
-        // 使用main线程RunLoop的.common模式注册Timer
-        studyTimer = Timer(timeInterval: 1.0, target: self, selector: #selector(updateStudyTimer), userInfo: nil, repeats: true)
-        if let timer = studyTimer {
-            RunLoop.main.add(timer, forMode: .common)
-        }
-        print("学习计时器已启动")
-    }
-    
-    func stopStudyTimer() {
-        studyTimer?.invalidate()
-        studyTimer = nil
-    }
-    
-    @objc func updateStudyTimer() {
-        studySecondsElapsed += 1
-        let hours = studySecondsElapsed / 3600
-        let minutes = (studySecondsElapsed % 3600) / 60
-        let seconds = studySecondsElapsed % 60
-        print(String(format: "学习计时：%02d:%02d:%02d", hours, minutes, seconds))
-    }
-    
     // 启动计时器
     func startWorkTimer() {
         workStartTime = Date()
@@ -581,36 +474,5 @@ class AnimePlayer{
         let minutes = (interval % 3600) / 60
         let seconds = interval % 60
         timerLabel.stringValue = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
-    }
-    
-    func showStudyPanel() {
-        guard let superview = ImageView?.superview else { return }
-        if studyPanel == nil {
-            let panel = StudyPanelView(frame: NSRect(x: 0, y: 0, width: 260, height: 180))
-            panel.stopAction = { [weak self] in self?.hideStudyPanel() }
-            studyPanel = panel
-        }
-        guard let panel = studyPanel else { return }
-        if panel.superview == nil { superview.addSubview(panel) }
-        panel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            panel.centerXAnchor.constraint(equalTo: ImageView.centerXAnchor),
-            panel.centerYAnchor.constraint(equalTo: ImageView.centerYAnchor, constant: 60),
-            panel.widthAnchor.constraint(equalToConstant: 260),
-            panel.heightAnchor.constraint(equalToConstant: 180)
-        ])
-        panel.setTime(0)
-        panel.isHidden = false
-        studyTimerSeconds = 0
-        studyPanelTimer?.invalidate()
-        studyPanelTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
-            guard let self = self else { return }
-            self.studyTimerSeconds += 1
-            self.studyPanel?.setTime(self.studyTimerSeconds)
-        }
-    }
-    func hideStudyPanel() {
-        studyPanelTimer?.invalidate()
-        studyPanel?.isHidden = true
     }
 }

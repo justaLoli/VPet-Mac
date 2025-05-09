@@ -1,0 +1,4 @@
+PNGAnimation#touch_head:|path#A/|mode#happy:|graph#Touch_Head:|
+PNGAnimation#touch_head:|path#B/|mode#happy:|graph#Touch_Head:|
+PNGAnimation#touch_head:|path#C/|mode#happy:|graph#Touch_Head:|
+FoodAnimation#touch_head:|mode#happy:|graph#Touch_Head:|a0#500:|a1#125,60,125,59:|a2#125,120,175,59:|a3#125,170,250,59:|a4#250,165,232,64:|a5#250,170,265,65:|a6#250,170,270,65:|a7#250,180,270,64:|a8#2000:|front_lay#touch_head_front_lay:|back_lay#touch_head_back_lay:|///Time,MarginX,Y,Width,Rotate,Opacity 

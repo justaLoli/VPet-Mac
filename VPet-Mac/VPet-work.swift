@@ -46,10 +46,10 @@ class VPetWorkHandler{
         self.currentActionTitle = title;
         
         if(newActionGraphType == .Work){
-            
             VPET.displayView.workingOverlayTitle.stringValue = "当前正在" + title
             VPET.displayView.workingOverlayStop.title = "停止" + title;
             VPET.displayView.workingOverlayView.isHidden = false;
+            VPET.animeplayer.startWorkTimer()
         }
     }
     func endplayFromCurrentActionTitle(){
@@ -68,7 +68,7 @@ class VPetWorkHandler{
         VPET.updateAnimation()
         
         VPET.displayView.workingOverlayView.isHidden = true;
-        
+        VPET.animeplayer.stopWorkTimer()
     }
     
     func replayFromCurrentActionTitle(){

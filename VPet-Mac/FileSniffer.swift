@@ -20,37 +20,48 @@ class GraphInfo:Hashable{
     /// 类型: 主要动作分类
     public enum GraphType:String,CaseIterable
     {
-        /// 通用动画,用于被被其他动画调用或者mod等用途
-        /// 不被默认启用/使用的 不包含在GrapType
+        /// 普通
         case Common = "Common"
-        /// 被提起动态 *
-        case Raised_Dynamic = "Raised_Dynamic"
-        /// 被提起静态 (开始&循环&结束) *
-        case Raised_Static = "Raised_Static"
-        /// 现在所有会动的东西都是MOVE
-        case Move = "Move"
-        /// 呼吸 *
+        /// 默认
         case Default = "Default"
-        /// 摸头 (开始&循环&结束)
-        case Touch_Head = "Touch_Head"
-        /// 摸身体 (开始&循环&结束)
-        case Touch_Body = "Touch_Body"
-        /// 空闲 (包括下蹲/无聊等通用空闲随机动画) (开始&循环&结束)
-        case Idel = "Idel"
-        /// 睡觉 (开始&循环&结束) *
-        case Sleep = "Sleep"
-        /// 说话 (开始&循环&结束) *
-        case Say = "Say"
-        /// 待机 模式1 (开始&循环&结束)
-        case StateONE = "StateONE"
-        /// 待机 模式2 (开始&循环&结束)
-        case StateTWO = "StateTWO"
-        /// 开机 *
-        case StartUP = "StartUP"
-        /// 关机
-        case Shutdown = "Shutdown"
-        /// 工作 (开始&循环&结束) *
+        /// 工作
         case Work = "Work"
+        /// 睡觉
+        case Sleep = "Sleep"
+        /// 移动
+        case Move = "Move"
+        /// 摸头
+        case Touch_Head = "Touch_Head"
+        /// 摸身体
+        case Touch_Body = "Touch_Body"
+        /// 被提起
+        case Raised_Static = "Raised_Static"
+        /// 被提起动态
+        case Raised_Dynamic = "Raised_Dynamic"
+        /// 启动
+        case StartUP = "StartUP"
+        /// 关闭
+        case Shutdown = "Shutdown"
+        /// 工作一
+        case WorkOne = "WorkOne"
+        /// 工作二
+        case WorkTwo = "WorkTwo"
+        /// 学习
+        case Study = "Study"
+        /// 清屏
+        case WorkClean = "WorkClean"
+        /// 状态
+        case State = "State"
+        /// 状态一
+        case StateOne = "StateOne"
+        /// 状态二
+        case StateTwo = "StateTwo"
+        /// 音乐
+        case Music = "Music"
+        /// 无聊
+        case Boring = "Boring"
+        /// 蹲下
+        case Squat = "Squat"
         /// 向上切换状态
         case Switch_Up = "Switch/Up"
         /// 向下切换状态
@@ -113,14 +124,23 @@ class GraphInfo:Hashable{
         self.filename = filepath
         let filepathlower = filepath.lowercased()
         
-        for i in GraphType.allCases{
-            if(filepathlower.contains(i.rawValue.lowercased())){
-                self.graphtype = i
-                break;
+        // Special handling for State directory
+        if filepathlower.contains("/state/") {
+            if filepathlower.contains("stateone") || filepathlower.contains("state_one") || filepathlower.contains("stateONE") {
+                self.graphtype = .StateOne
+            } else if filepathlower.contains("statetwo") || filepathlower.contains("state_two") || filepathlower.contains("stateTWO") {
+                self.graphtype = .StateTwo
+            } else {
+                self.graphtype = .State
+            }
+        } else {
+            for i in GraphType.allCases{
+                if(filepathlower.contains(i.rawValue.lowercased())){
+                    self.graphtype = i
+                    break;
+                }
             }
         }
-        
-        
         
         for i in ModeType.allCases{
             if(filepathlower.contains(i.rawValue.lowercased())){

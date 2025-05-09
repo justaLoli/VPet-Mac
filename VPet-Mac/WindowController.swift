@@ -20,13 +20,24 @@ class WindowController: NSWindowController,NSWindowDelegate {
         //让imageview的大小和window一致（整个程序生命中都应该保证这一点）
         viewcontroller.imagev.setFrameSize((window?.frame.size)!)
         
-        
         window?.setFrameOrigin(NSPoint(x: 100, y: 100))
         
-//        let appDelegate = NSApplication.shared.delegate as! AppDelegate
-//        appDelegate.VPET = VPET
-        VPET = VPet(displayWindow: self, animeplayer: viewcontroller.player,displayView: viewcontroller)
+        // 启用鼠标移动追踪
+        window?.acceptsMouseMovedEvents = true
+        
+        // 设置窗口大小
+        window?.setContentSize(NSSize(width: 300, height: 300))
+        
+        // 初始化 AnimePlayer
+        let player = AnimePlayer(viewcontroller.imagev, nil)
+        viewcontroller.setAnimePlayer(player)
+        
+        // 初始化VPET
+        VPET = VPet(displayWindow: self, animeplayer: player, displayView: viewcontroller)
         VPET.startup()
+        
+        // 更新 AnimePlayer 的 VPET 引用
+        player.VPET = VPET
         
         viewcontroller.chooseActionMenu.sendVPET(VPET)
         
@@ -34,7 +45,6 @@ class WindowController: NSWindowController,NSWindowDelegate {
 //        let dragGesture = NSPanGestureRecognizer(target: viewcontroller, action: #selector(VPET.raised2(_:)))
 ////        yourCustomView.addGestureRecognizer(dragGesture)
 //        viewcontroller.imagev.addGestureRecognizer(dragGesture)
-        
     }
     
     

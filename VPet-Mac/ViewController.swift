@@ -23,20 +23,47 @@ class ViewController: NSViewController {
     @IBOutlet weak var workingOverlayTitle: NSTextField!
     @IBOutlet weak var workingOverlayStop: NSButton!
     
+    // 计时器数字UI
+    var timerLabel: NSTextField = {
+        let label = NSTextField(labelWithString: "00:00:00")
+        label.font = NSFont.monospacedDigitSystemFont(ofSize: 32, weight: .bold)
+        label.textColor = .white
+        label.isBezeled = false
+        label.drawsBackground = false
+        label.isEditable = false
+        label.isSelectable = false
+        label.alignment = .center
+        label.isHidden = true
+        return label
+    }()
+    
+    // 计时器相关变量
+    var workStartTime: Date?
+    var workTimer: Timer?
     
     override func viewDidLoad() {
         print("viewdidload")
         super.viewDidLoad()
-        player = AnimePlayer(imagev)
         
-        //让imageview的大小和window一致（整个程序生命中都应该保证这一点）
-        //写在window里面了
-//        imagev.setFrameSize(self.view.window!.frame.size)
+        // 将计时器UI添加到工作浮层并稍微向下偏移
+        timerLabel.translatesAutoresizingMaskIntoConstraints = false
+        workingOverlayView.addSubview(timerLabel)
+        NSLayoutConstraint.activate([
+            timerLabel.centerXAnchor.constraint(equalTo: workingOverlayView.centerXAnchor),
+            timerLabel.centerYAnchor.constraint(equalTo: workingOverlayView.centerYAnchor, constant: 4),
+            timerLabel.widthAnchor.constraint(equalToConstant: 180),
+            timerLabel.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
         initButton()
         initMouseEvent()
         initViewMainMenu()
-
     }
+    
+    func setAnimePlayer(_ player: AnimePlayer) {
+        self.player = player
+    }
+    
     func initViewMainMenu(){
         self.view.menu = viewMainMenu
         self.view.menu?.item(withTitle: "互动")!.submenu = chooseActionMenu.menu
@@ -53,31 +80,24 @@ class ViewController: NSViewController {
         self.workingOverlayView.isHidden = true;
     }
     func initMouseEvent(){
-        
         //鼠标事件：鼠标右键切换按钮的显示和隐藏
-        NSEvent.addLocalMonitorForEvents(matching: [.leftMouseDown, .leftMouseUp, .rightMouseDown, .rightMouseUp, .mouseMoved, .leftMouseDragged], handler: { (event) -> NSEvent? in
+        NSEvent.addLocalMonitorForEvents(matching: [.leftMouseDown, .leftMouseUp, .rightMouseDown, .rightMouseUp, .leftMouseDragged], handler: { (event) -> NSEvent? in
             switch event.type{
             case .leftMouseDown:
+                print("Mouse Down Event")
                 guard let windowController = self.view.window?.windowController as? WindowController else{
+                    print("Failed to get window controller")
                     return event
                 }
                 guard let VPET = windowController.VPET else{
+                    print("Failed to get VPET")
                     return event
                 }
                 VPET.handleLeftMouseDown(event.locationInWindow)
             case .rightMouseUp:
-//                for subview in self.view.subviews{
-//                    if let button = subview as? NSButton{
-//                        button.isHidden.toggle()
-//                    }
-//                }
-                //改用menu之后，menu会自动弹出
-//                self.view.menu?.popUp(positioning: nil, at: NSPoint(x: 0, y: 0), in: self.view)
-//                self.ZANbutton.isHidden = !self.ZANbutton.isHidden
-//                self.BObutton.isHidden = !self.BObutton.isHidden
-//                self.ACTIONMenuButton.isHidden = !self.ACTIONMenuButton.isHidden
                 break;
             case .leftMouseDragged:
+                print("Mouse Dragged Event")
                 guard let windowController = self.view.window?.windowController as? WindowController else{
                     return event
                 }
@@ -87,6 +107,7 @@ class ViewController: NSViewController {
                 VPET.handleLeftMouseDragged(event.locationInWindow)
                 break;
             case .leftMouseUp:
+                print("Mouse Up Event")
                 guard let windowController = self.view.window?.windowController as? WindowController else{
                     return event
                 }
@@ -94,7 +115,6 @@ class ViewController: NSViewController {
                     return event
                 }
                 VPET.handleLeftMouseUp()
-                
             default:break;
             }
             return event
@@ -162,6 +182,36 @@ class ViewController: NSViewController {
         }
     }
 
+    // 启动计时器
+    func startWorkTimer() {
+        workStartTime = Date()
+        timerLabel.isHidden = false
+        updateWorkTimerLabel()
+        workTimer?.invalidate()
+        workTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+            self?.updateWorkTimerLabel()
+        }
+    }
+    // 停止计时器
+    func stopWorkTimer() {
+        workTimer?.invalidate()
+        workTimer = nil
+        timerLabel.isHidden = true
+        timerLabel.stringValue = "00:00:00"
+    }
+    // 更新时间显示
+    func updateWorkTimerLabel() {
+        guard let start = workStartTime else { timerLabel.stringValue = "00:00:00"; return }
+        let interval = Int(Date().timeIntervalSince(start))
+        let hours = interval / 3600
+        let minutes = (interval % 3600) / 60
+        let seconds = interval % 60
+        timerLabel.stringValue = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+    }
+
+    override func mouseMoved(with event: NSEvent) {
+        // 移除鼠标移动事件处理，因为我们不再需要它
+    }
 
 }
 

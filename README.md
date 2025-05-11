@@ -1,6 +1,6 @@
 # VPet-Mac
 
-虚拟桌宠模拟器的饭制Mac版（极其简陋！）
+[虚拟桌宠模拟器](https://github.com/LorisYounger/VPet)的饭制Mac版（极其简陋！）
 
 桌宠可以在卑微的苹果系统上运行么🥺
 

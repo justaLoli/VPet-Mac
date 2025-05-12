@@ -201,6 +201,8 @@ class VPetAutoMoveHandler{
     
     func startAutoMove(){
         if(moveStarted){return;}
+        // 如果计时器正在运行，则不启动自动移动
+        if(self.VPET.animeplayer.workTimer != nil){return;}
         moveStarted = true;
         self.VPET.autoActionHendler.autoActionStarted = true;
         generateMove();

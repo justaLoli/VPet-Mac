@@ -1,3 +1,8 @@
+# MacOS file system garbage
 .DS_Store
+# unnecessary user data
 *.xcuserstate
 xcuserdata/
+# for source-kit lsp
+Package.swift
+.build

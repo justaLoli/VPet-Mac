@@ -9,6 +9,8 @@ import Cocoa
 
 class WindowController: NSWindowController,NSWindowDelegate {
     var VPET:VPet!
+    var stateManager: VPetStateManager!
+    private var stateDisplay: VPetStateDisplay!
    
     override func windowDidLoad() {
         print("windowdidload")
@@ -40,6 +42,31 @@ class WindowController: NSWindowController,NSWindowDelegate {
         player.VPET = VPET
         
         viewcontroller.chooseActionMenu.sendVPET(VPET)
+        
+        // 初始化状态管理器
+        stateManager = VPetStateManager()
+        
+        // 初始化状态显示组件
+        stateDisplay = VPetStateDisplay(frame: viewcontroller.view.bounds)
+        stateDisplay.translatesAutoresizingMaskIntoConstraints = false
+        viewcontroller.view.addSubview(stateDisplay)
+        
+        // 设置状态显示组件的约束
+        NSLayoutConstraint.activate([
+            stateDisplay.leadingAnchor.constraint(equalTo: viewcontroller.view.leadingAnchor),
+            stateDisplay.trailingAnchor.constraint(equalTo: viewcontroller.view.trailingAnchor),
+            stateDisplay.topAnchor.constraint(equalTo: viewcontroller.view.topAnchor),
+            stateDisplay.bottomAnchor.constraint(equalTo: viewcontroller.view.bottomAnchor)
+        ])
+        
+        // 初始化金钱管理器
+        _ = VPetMoneyManager.shared
+        
+        // 初始化经验管理器
+        _ = VPetExpManager.shared
+        
+        // 启动状态管理器
+        stateManager.transition(to: .normal)
         
 //        let windowController = self.view.window?.windowController as! WindowController
 //        let dragGesture = NSPanGestureRecognizer(target: viewcontroller, action: #selector(VPET.raised2(_:)))

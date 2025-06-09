@@ -9,7 +9,7 @@ import Cocoa
 
 class VPet{
     let displayWindow:WindowController!
-    let displayView:ViewController!
+    let displayView:ViewController
     let animeplayer:AnimePlayer!
     var VPetStatus = GraphInfo.ModeType.Happy
     

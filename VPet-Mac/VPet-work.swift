@@ -69,6 +69,9 @@ class VPetWorkHandler{
         
         VPET.displayView.workingOverlayView.isHidden = true;
         VPET.animeplayer.stopWorkTimer()
+        
+        // 假设每次活动完成奖励 10 经验（后续可参数化）
+        VPetExpManager.shared.addExp(amount: 10)
     }
     
     func replayFromCurrentActionTitle(){

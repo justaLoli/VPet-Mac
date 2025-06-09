@@ -1,0 +1,45 @@
+
+/* Class = "NSTextFieldCell"; title = "当前正在"; ObjectID = "1oY-TY-U2O"; */
+"1oY-TY-U2O.title" = "当前正在";
+
+/* Class = "NSMenuItem"; title = "系统"; ObjectID = "7Wq-mh-LxQ"; */
+"7Wq-mh-LxQ.title" = "系统";
+
+/* Class = "NSButtonCell"; title = "退出"; ObjectID = "9v9-Ez-xp2"; */
+"9v9-Ez-xp2.title" = "退出";
+
+/* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
+"AYu-sK-qS6.title" = "Main Menu";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "IQv-IB-iLA"; */
+"IQv-IB-iLA.title" = "Window";
+
+/* Class = "NSMenuItem"; title = "面板"; ObjectID = "Ieb-Wn-vtH"; */
+"Ieb-Wn-vtH.title" = "面板";
+
+/* Class = "NSViewController"; title = "ViewController"; ObjectID = "XfG-lQ-9wD"; */
+"XfG-lQ-9wD.title" = "ViewController";
+
+/* Class = "NSMenuItem"; title = "退出"; ObjectID = "YbU-KL-ZfY"; */
+"YbU-KL-ZfY.title" = "退出";
+
+/* Class = "NSMenuItem"; title = "投喂"; ObjectID = "aX2-U6-Rzd"; */
+"aX2-U6-Rzd.title" = "投喂";
+
+/* Class = "NSButtonCell"; title = "一键爬行"; ObjectID = "cDG-C2-g0b"; */
+"cDG-C2-g0b.title" = "一键爬行";
+
+/* Class = "NSButtonCell"; title = "动作"; ObjectID = "kMl-gk-HM4"; */
+"kMl-gk-HM4.title" = "动作";
+
+/* Class = "NSButtonCell"; title = "停止..."; ObjectID = "p53-it-b54"; */
+"p53-it-b54.title" = "停止...";
+
+/* Class = "NSMenuItem"; title = "互动"; ObjectID = "pa7-eP-7AB"; */
+"pa7-eP-7AB.title" = "互动";
+
+/* Class = "NSButtonCell"; title = "切换状态"; ObjectID = "rek-uE-p48"; */
+"rek-uE-p48.title" = "切换状态";
+
+/* Class = "NSMenu"; title = "系统"; ObjectID = "rl5-uM-Kwo"; */
+"rl5-uM-Kwo.title" = "系统";
